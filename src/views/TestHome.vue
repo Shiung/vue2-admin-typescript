@@ -1,8 +1,8 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 // state
-const isCollapse = ref<Boolean>(true)
+const isCollapse = ref<boolean>(true)
 
 const handleOpen = (props: any) => {
   const [key, keyPath] = props
@@ -11,9 +11,8 @@ const handleOpen = (props: any) => {
 
 const handleClose = (props: any) => {
   const [key, keyPath] = props
-  console.log(key, keyPath);
+  console.log(key, keyPath)
 }
-
 </script>
 <template>
   <div>
@@ -56,9 +55,9 @@ const handleClose = (props: any) => {
   </div>
 </template>
 
-<style lang='scss' scoped>
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
-  }
+<style lang="scss" scoped>
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
 </style>

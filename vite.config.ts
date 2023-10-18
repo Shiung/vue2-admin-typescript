@@ -5,6 +5,9 @@ import legacy from '@vitejs/plugin-legacy'
 import vue2 from '@vitejs/plugin-vue2'
 import vue2Jsx from '@vitejs/plugin-vue2-jsx'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import { execSync } from 'child_process'
+
+import packageJson from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,7 +20,13 @@ export default defineConfig({
     }),
     createHtmlPlugin({
       inject: {
-        data: { title: 'vue 2 project' }
+        data: {
+          title: packageJson.name,
+          meta: [
+            { name: 'curVersion', content: packageJson.version },
+            { name: 'commitHEAD', content: execSync('git rev-parse HEAD').toString() }
+          ]
+        }
       }
     })
   ],

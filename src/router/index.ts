@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import Progress from '@core/progress'
+
+import type { ToRouterType } from './types'
 
 Vue.use(VueRouter)
 
@@ -30,8 +33,15 @@ const router = new VueRouter({
       path: '/test2',
       name: 'test2',
       component: () => import('../views/Test2Home.vue')
-    }, 
+    }
   ]
+})
+
+router.beforeEach((to: ToRouterType, from, next) => {
+  Progress.start()
+  console.log('to', to)
+  next()
+  Progress.done()
 })
 
 export default router

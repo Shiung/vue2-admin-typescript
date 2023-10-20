@@ -23,8 +23,8 @@ export default defineConfig({
         data: {
           title: packageJson.name,
           meta: [
-            { name: 'curVersion', content: packageJson.version },
-            { name: 'commitHEAD', content: execSync('git rev-parse HEAD').toString() }
+            { name: 'app_version', content: packageJson.version },
+            { name: 'app_commitHEAD', content: execSync('git rev-parse HEAD').toString() }
           ]
         }
       }

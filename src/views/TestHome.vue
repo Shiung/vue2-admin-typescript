@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onActivated, onDeactivated } from 'vue'
+import Progress from '@core/progress'
 
 // state
 const isCollapse = ref<boolean>(true)
@@ -13,6 +14,29 @@ const handleClose = (props: any) => {
   const [key, keyPath] = props
   console.log(key, keyPath)
 }
+
+const fetch = async () => {
+  return new Promise((resolve) => {
+    Progress.start()
+    setTimeout(() => {
+      console.log('isCollapse', isCollapse.value)
+      resolve(true)
+      Progress.done()
+    }, 3000)
+  })
+}
+onMounted(() => {
+  console.log('mounted')
+  fetch()
+})
+
+onActivated(() => {
+  console.log('active')
+})
+
+onDeactivated(() => {
+  console.log('onDeactivated')
+})
 </script>
 <template>
   <div>

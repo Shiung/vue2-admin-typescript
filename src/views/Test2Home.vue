@@ -1,22 +1,42 @@
 <script>
+import { mapState, mapActions } from 'pinia'
+import { useUserStore } from '@/stores/user'
+
+import API from '@/api'
 export default {
   data() {
     return {
       isCollapse: true
     }
   },
+  computed: {
+    ...mapState(useUserStore, {
+      storeToken: 'token'
+    })
+  },
   methods: {
+    ...mapActions(useUserStore, ['SET_TOKEN']),
     handleOpen(key, keyPath) {
       console.log(key, keyPath)
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath)
+    },
+    async feetchData() {
+      const res3 = await API.testFetch()
+      console.log('res3', res3)
     }
+  },
+  mounted() {
+    this.feetchData()
+    console.log('mounted test2home')
+    setTimeout(() => { this.SET_TOKEN('abctest') }, 3000)
   }
 }
 </script>
 <template>
   <div>
+    <div>{{ storeToken }}</div>
     <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
       <el-radio-button :label="false">展开</el-radio-button>
       <el-radio-button :label="true">收起</el-radio-button>

@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+import API from '@/api'
+
+;(async () => {
+  // const res = await API.testFetch({ baseURL: 'https://dummyjson.com', params: { key: 2 }, headers: { Authorization: 'abc123' } })
+  const res = await API.testFetch({ headers: { Authorization: 'test123' } })
+  console.log('res', res.id)
+
+  const res2 = await API.testPost(undefined, { title: '123' })
+  console.log('res2', res2)
+})()
 </script>
 
 <template>
@@ -18,8 +28,9 @@ import HelloWorld from './components/HelloWorld.vue'
         </nav>
       </div>
     </header>
-
-    <router-view />
+    <keep-alive include="TestHome">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 

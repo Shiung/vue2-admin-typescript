@@ -1,1 +1,65 @@
-import Axios, { type AxiosInstance, type AxiosRequestConfig, type CustomParamsSerializer } from 'axios'
+import Axios from 'axios'
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, RequestMethods } from './types'
+
+const defaultConfig: AxiosRequestConfig = {
+  baseURL: '/',
+  timeout: 0.5 * 60 * 1000,
+  headers: {
+    Accept: 'application/json, text/plain, */*',
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  }
+}
+
+export default class Base {
+  constructor() {
+    this.httpInterceptorsRequest()
+    this.httpInterceptorsResponse()
+  }
+
+  // 註冊axios instance
+  private static axiosInstance: AxiosInstance = Axios.create(defaultConfig)
+
+  // 請求攔截器
+  private httpInterceptorsRequest(): void {
+    Base.axiosInstance.interceptors.request.use(
+      (config) => {
+        console.log('config', config)
+        return config
+      },
+      (error) => Promise.reject(error)
+    )
+  }
+
+  // 回應攔截器
+  private httpInterceptorsResponse(): void {
+    Base.axiosInstance.interceptors.response.use(
+      (response: AxiosResponse) => {
+        console.log('response', response)
+        return response.data
+      },
+      (error) => {
+        return Promise.reject(error)
+      }
+    )
+  }
+
+  public request<T>(method: RequestMethods, url: string, param?: AxiosRequestConfig, axiosConfig?: AxiosRequestConfig): Promise<T> {
+    const config = {
+      method,
+      url,
+      ...param,
+      ...axiosConfig
+    }
+
+    return Base.axiosInstance.request(config)
+  }
+
+  public post<T, P>(url: string, params?: AxiosRequestConfig<T>, config?: AxiosRequestConfig): Promise<P> {
+    return this.request<P>('post', url, params, config)
+  }
+
+  public get<T, P>(url: string, params?: AxiosRequestConfig<T>, config?: AxiosRequestConfig): Promise<P> {
+    return this.request<P>('get', url, params, config)
+  }
+}

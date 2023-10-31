@@ -4,10 +4,10 @@ import API from '@/api'
 
 ;(async () => {
   // const res = await API.testFetch({ baseURL: 'https://dummyjson.com', params: { key: 2 }, headers: { Authorization: 'abc123' } })
-  const res = await API.testFetch({ headers: { Authorization: 'test123' } })
-  console.log('res', res.id)
+  const res = await API.TestFetch({ page: 1, key: 2 }, { headers: { Authorization: 'test123' } })
+  console.log('res', res, res.data?.id ?? res)
 
-  const res2 = await API.testPost(undefined, { title: '123' })
+  const res2 = await API.TestPost({ title: '123' }, undefined)
   console.log('res2', res2)
 })()
 </script>

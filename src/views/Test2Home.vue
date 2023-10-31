@@ -16,21 +16,25 @@ export default {
   },
   methods: {
     ...mapActions(useUserStore, ['SET_TOKEN']),
-    handleOpen(key, keyPath) {
+    handleOpen(q) {
+      const [key, keyPath] = q
       console.log(key, keyPath)
     },
-    handleClose(key, keyPath) {
+    handleClose(q) {
+      const [key, keyPath] = q
       console.log(key, keyPath)
     },
     async feetchData() {
-      const res3 = await API.testFetch()
+      const res3 = await API.TestFetch({ key: 3, page: 3 })
       console.log('res3', res3)
     }
   },
   mounted() {
     this.feetchData()
     console.log('mounted test2home')
-    setTimeout(() => { this.SET_TOKEN('abctest') }, 3000)
+    setTimeout(() => {
+      this.SET_TOKEN('abctest')
+    }, 3000)
   }
 }
 </script>

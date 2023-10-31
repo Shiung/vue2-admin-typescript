@@ -2,8 +2,14 @@
 import { ref, onMounted, onActivated, onDeactivated } from 'vue'
 import Progress from '@core/progress'
 
+import { useUserStoreHook, useUserStore } from '@/stores/user'
+
 // state
 const isCollapse = ref<boolean>(true)
+
+// store
+const store = useUserStore()
+const { SET_TOKEN } = useUserStoreHook()
 
 const handleOpen = (props: any) => {
   const [key, keyPath] = props
@@ -28,6 +34,9 @@ const fetch = async () => {
 onMounted(() => {
   console.log('mounted')
   fetch()
+  setTimeout(() => {
+    SET_TOKEN('change_123')
+  }, 2000)
 })
 
 onActivated(() => {
@@ -40,6 +49,7 @@ onDeactivated(() => {
 </script>
 <template>
   <div>
+    {{ store.token }}
     <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
       <el-radio-button :label="false">展开</el-radio-button>
       <el-radio-button :label="true">收起</el-radio-button>

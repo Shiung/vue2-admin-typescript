@@ -6,6 +6,7 @@ import vue2 from '@vitejs/plugin-vue2'
 import vue2Jsx from '@vitejs/plugin-vue2-jsx'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { execSync } from 'child_process'
+import { viteMockServe } from 'vite-plugin-mock'
 
 import packageJson from './package.json'
 
@@ -28,6 +29,16 @@ export default defineConfig({
           ]
         }
       }
+    }),
+    // https://github.com/vbenjs/vite-plugin-mock
+    viteMockServe({
+      mockPath: 'mock',
+      watchFiles: true,
+      logger: true
+      // injectCode: `
+      //   import { setupProdMockServer } from './mockProdServer';
+      //   setupProdMockServer();
+      // `
     })
   ],
   server: {
@@ -41,7 +52,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@core': fileURLToPath(new URL('./src/core', import.meta.url))
+      '@core': fileURLToPath(new URL('./src/core', import.meta.url)),
+      '@views': fileURLToPath(new URL('./src/views', import.meta.url))
     }
   }
 })

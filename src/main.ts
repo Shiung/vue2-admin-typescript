@@ -6,11 +6,14 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
 import router from './router'
 import { store } from './stores'
+import { setupProdMockServer } from './mock/mockProdServer'
 
 import './assets/main.css'
 
 Vue.use(ElementUI)
 Vue.use(PiniaVuePlugin)
+
+setupProdMockServer()
 
 new Vue({
   router,

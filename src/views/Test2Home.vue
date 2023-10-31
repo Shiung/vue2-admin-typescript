@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { useUserStore } from '@/stores/user'
 
 import API from '@/api'
-export default {
+export default defineComponent({
   data() {
     return {
       isCollapse: true
@@ -16,11 +17,11 @@ export default {
   },
   methods: {
     ...mapActions(useUserStore, ['SET_TOKEN']),
-    handleOpen(q) {
+    handleOpen(q: any) {
       const [key, keyPath] = q
       console.log(key, keyPath)
     },
-    handleClose(q) {
+    handleClose(q: any) {
       const [key, keyPath] = q
       console.log(key, keyPath)
     },
@@ -36,7 +37,7 @@ export default {
       this.SET_TOKEN('abctest')
     }, 3000)
   }
-}
+})
 </script>
 <template>
   <div>

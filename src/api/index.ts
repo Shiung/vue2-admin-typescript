@@ -1,10 +1,11 @@
 import Base from '@core/http/base'
+import type { ApiType } from '@core/http/types'
 import type * as Type from './types'
 
 import { useUserStoreHook } from '@/stores/user'
-import { actionTestMapping } from './test'
 
 const mock = localStorage.getItem('mock') === 'true' || false
+
 class API extends Base {
   constructor() {
     super()
@@ -18,20 +19,17 @@ class API extends Base {
     }
   }
 
-  // test
-  [actionTestMapping.TestFetch.name](params: Type.TestActionType.TestFetch['req'], c?: Type.AxiosConfigBind) {
-    const config = this.configBind(c)
-    return this.get<null, Type.TestActionType.TestFetch['res']>(actionTestMapping.TestFetch.path, params ? { params } : undefined, config)
+  private action_get<T extends ApiType<T['res'], T['req']>>(url: string) {
+    return (params: T['req'], c?: Type.AxiosConfigBind) => this.get<T>(url, params, this.configBind(c))
   }
 
-  [actionTestMapping.TestPost.name](data: Type.TestActionType.TestPost['req'], c?: Type.AxiosConfigBind) {
-    const config = this.configBind(c)
-    return this.post<Type.TestActionType.TestPost['req'], Type.TestActionType.TestPost['res']>(
-      actionTestMapping.TestPost.path,
-      { data },
-      config
-    )
+  private action_post<T extends ApiType<T['res'], T['req']>>(url: string) {
+    return (data: T['req'], c?: Type.AxiosConfigBind) => this.post<T>(url, data, this.configBind(c))
   }
+
+  // test
+  TestFetch = this.action_get<Type.TestActionType.TestFetch>('/products/1')
+  TestPost = this.action_post<Type.TestActionType.TestPost>('/products/add')
 
   // testFetch(params: Type.TestActionType.TestFetch['req'], c?: Type.AxiosConfigBind) {
   //   const config = this.configBind(c)

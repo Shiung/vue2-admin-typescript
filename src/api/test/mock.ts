@@ -1,12 +1,11 @@
 import type { MockMethod } from 'vite-plugin-mock'
 import { Random } from 'mockjs'
-import { actionTestMapping } from './index'
 import type { TestFetch, TestPost } from './type'
 
 export default () => {
   return [
     {
-      url: actionTestMapping.TestFetch.path,
+      url: '/products/1',
       method: 'get',
       response: ({ query }: { query: TestFetch['req'] }): TestFetch['res'] => {
         console.log('query>>>>>>>> get', query)
@@ -15,7 +14,7 @@ export default () => {
           message: 'ok',
           mockPath: {
             root: import.meta.url,
-            path: actionTestMapping.TestFetch.path
+            path: '/products/1'
           },
           data: {
             id: Random.integer(10, 50),
@@ -26,7 +25,7 @@ export default () => {
       // timeout: 2000
     },
     {
-      url: actionTestMapping.TestPost.path,
+      url: '/products/add',
       method: 'post',
       response: (res: any): TestPost['res'] => {
         console.log('query>>>>>>>>add', res)
@@ -35,7 +34,7 @@ export default () => {
           message: 'ok',
           mockPath: {
             root: import.meta.url,
-            path: actionTestMapping.TestPost.path
+            path: '/products/add'
           },
           data: { id: Random.integer(10, 50), title: Random.name() }
         }

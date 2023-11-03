@@ -8,6 +8,7 @@ interface TestFetch {
   res: withData<{
     id: number
     title: string
+    name?: string
   }>
 }
 

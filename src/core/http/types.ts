@@ -2,4 +2,9 @@ import type { AxiosInstance, Method, AxiosError, AxiosResponse, AxiosRequestConf
 
 type RequestMethods = Extract<Method, 'get' | 'post' | 'put' | 'delete' | 'option'>
 
-export type { AxiosInstance, RequestMethods, AxiosError, AxiosResponse, AxiosRequestConfig }
+type ApiType<TRes, TReq> = {
+  req: TReq & AxiosRequestConfig
+  res: TRes
+}
+
+export type { AxiosInstance, RequestMethods, AxiosError, AxiosResponse, AxiosRequestConfig, ApiType }

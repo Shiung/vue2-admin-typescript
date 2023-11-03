@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, RequestMethods } from './types'
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, RequestMethods, ApiType } from './types'
 
 const defaultConfig: AxiosRequestConfig = {
   baseURL: '/',
@@ -44,7 +44,7 @@ export default class Base {
     )
   }
 
-  public request<T>(method: RequestMethods, url: string, param?: AxiosRequestConfig, axiosConfig?: AxiosRequestConfig): Promise<T> {
+  private request<T>(method: RequestMethods, url: string, param?: AxiosRequestConfig, axiosConfig?: AxiosRequestConfig): Promise<T> {
     const config = {
       method,
       url,
@@ -55,11 +55,13 @@ export default class Base {
     return Base.axiosInstance.request(config)
   }
 
-  public post<T, P>(url: string, params?: AxiosRequestConfig<T>, config?: AxiosRequestConfig): Promise<P> {
-    return this.request<P>('post', url, params, config)
+  protected post<T extends ApiType<T['res'], T['req']>>(url: string, params?: T['req'], config?: AxiosRequestConfig): Promise<T['res']> {
+    const p = params ? { data: params } : undefined
+    return this.request<T['res']>('post', url, p, config)
   }
 
-  public get<T, P>(url: string, params?: AxiosRequestConfig<T>, config?: AxiosRequestConfig): Promise<P> {
-    return this.request<P>('get', url, params, config)
+  protected get<T extends ApiType<T['res'], T['req']>>(url: string, params?: T['req'], config?: AxiosRequestConfig): Promise<T['res']> {
+    const p = params ? { params } : undefined
+    return this.request<T['res']>('get', url, p, config)
   }
 }

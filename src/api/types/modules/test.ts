@@ -1,4 +1,4 @@
-import type { withData } from '../types'
+import type { withData } from '../common'
 
 interface TestFetch {
   req: {

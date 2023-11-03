@@ -1,14 +1,13 @@
 import type { MockMethod } from 'vite-plugin-mock'
 import { Random } from 'mockjs'
-import type { TestFetch, TestPost } from './type'
+import type { TestActionType } from '@/api/types'
 
 export default () => {
   return [
     {
       url: '/products/1',
       method: 'get',
-      response: ({ query }: { query: TestFetch['req'] }): TestFetch['res'] => {
-        console.log('query>>>>>>>> get', query)
+      response: (): TestActionType.TestFetch['res'] => {
         return {
           code: 0,
           message: 'ok',
@@ -27,7 +26,7 @@ export default () => {
     {
       url: '/products/add',
       method: 'post',
-      response: (res: any): TestPost['res'] => {
+      response: (res: any): TestActionType.TestPost['res'] => {
         console.log('query>>>>>>>>add', res)
         return {
           code: 0,

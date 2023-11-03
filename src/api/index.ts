@@ -20,7 +20,7 @@ class API extends Base {
   }
 
   private action_get<T extends ApiType<T['res'], T['req']>>(url: string) {
-    return (params: T['req'], c?: Type.AxiosConfigBind) => this.get<T>(url, params, this.configBind(c))
+    return (params?: T['req'], c?: Type.AxiosConfigBind) => this.get<T>(url, params, this.configBind(c))
   }
 
   private action_post<T extends ApiType<T['res'], T['req']>>(url: string) {

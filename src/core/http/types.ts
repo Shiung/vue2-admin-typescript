@@ -3,7 +3,7 @@ import type { AxiosInstance, Method, AxiosError, AxiosResponse, AxiosRequestConf
 type RequestMethods = Extract<Method, 'get' | 'post' | 'put' | 'delete' | 'option'>
 
 type ApiType<TRes, TReq> = {
-  req: TReq & AxiosRequestConfig
+  req?: TReq & AxiosRequestConfig
   res: TRes
 }
 

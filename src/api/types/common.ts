@@ -15,5 +15,3 @@ export interface withData<T> {
   data: T
   mockPath?: Mock
 }
-
-export * as TestActionType from './test/type'

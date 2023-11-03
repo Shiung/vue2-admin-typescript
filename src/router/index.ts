@@ -17,12 +17,24 @@ const router = new VueRouter({
       component: HomeView
     },
     {
+      path: '/login',
+      name: 'login',
+      components: {
+        default: () => import('@views/LogIn.vue'),
+        sideBar: () => import('@/components/SideBar.vue')
+      }
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('@views/AboutView.vue')
+      // component: () => import('@views/AboutView.vue')
+      components: {
+        default: () => import('@views/AboutView.vue'),
+        sideBar: () => import('@/components/SideBar.vue')
+      }
     },
     {
       path: '/test',

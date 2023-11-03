@@ -5,9 +5,15 @@ import API from '@/api'
 ;(async () => {
   // const res = await API.testFetch({ baseURL: 'https://dummyjson.com', params: { key: 2 }, headers: { Authorization: 'abc123' } })
   const res = await API.TestFetch({ page: 1, key: 2 }, { headers: { Authorization: 'test123' } })
+  // const res = await API.TestFetch()
   console.log('res', res, res.data?.id ?? res)
 
-  const res2 = await API.TestPost({ title: '123' }, undefined)
+
+  const res2 = await API.TestPost({ title: 'this is title' })
+  // const reTest = await API.test__method()
+  // console.log('reTest', API, reTest)
+
+  // const res2 = await API.TestPost({ title: '123' }, undefined)
   console.log('res2', res2)
 })()
 </script>
@@ -22,6 +28,7 @@ import API from '@/api'
 
         <nav>
           <router-link to="/">Home</router-link>
+          <router-link to="/login">login</router-link>
           <router-link to="/about">About</router-link>
           <router-link to="/test">test</router-link>
           <router-link to="/test2">test2</router-link>
@@ -30,6 +37,9 @@ import API from '@/api'
     </header>
     <keep-alive include="TestHome">
       <router-view />
+    </keep-alive>
+    <keep-alive include="side-bar-test">
+      <router-view name="sideBar" />
     </keep-alive>
   </div>
 </template>

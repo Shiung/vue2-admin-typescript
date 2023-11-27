@@ -9,6 +9,7 @@ import { store } from './stores'
 import { setupProdMockServer } from './mock/mockProdServer'
 
 import './assets/main.css'
+import './styles/tailwind.css'
 
 Vue.use(ElementUI)
 Vue.use(PiniaVuePlugin)

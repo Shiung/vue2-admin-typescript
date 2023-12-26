@@ -8,7 +8,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@core/*": ["./src/core/*"],
-      "@views/*": ["./src/views/*"]
+      "@views/*": ["./src/views/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "allowJs": true,
     "resolveJsonModule": true,

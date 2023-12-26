@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#FFCF54'
+        // primary: '#FFCF54'
+        primary: 'var(--luTheme-primary)'
       }
     },
   },

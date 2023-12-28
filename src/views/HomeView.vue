@@ -4,6 +4,7 @@ import TheWelcome from '@/components/TheWelcome.vue'
 
 <template>
   <main class="bg-white">
-    <TheWelcome />
+    <!-- <TheWelcome /> -->
+    this is home
   </main>
 </template>

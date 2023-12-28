@@ -6,5 +6,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-gray-400 text-9xl">login</div>
+  <div class="bg-gray-400 text-primary text-9xl">login</div>
 </template>

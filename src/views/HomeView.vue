@@ -1,10 +1,10 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import TheWelcome from '@/components/TheWelcome.vue'
-</script>
+</script> -->
 
 <template>
-  <main class="bg-white">
+  <main class="text-primary p-2">
     <!-- <TheWelcome /> -->
-    this is home
+    <router-view />
   </main>
 </template>

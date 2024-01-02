@@ -2,15 +2,24 @@
 </script>
 
 <template>
-  <div id="app">
-    <router-view name="layout">
+  <div id="app" class="flex min-h-screen">
+    <keep-alive include="sideBar">
+      <router-view name="sideBar" />
+    </keep-alive>
+    <div class="flex-1 bg-[#ccc]">
+      <keep-alive include="navHeader">
+        <router-view name="navHeader" />
+      </keep-alive>
       <router-view />
-    </router-view>
-    <div>hello</div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+#app {
+  min-width: 1024px;
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;

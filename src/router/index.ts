@@ -16,16 +16,36 @@ const router = new VueRouter({
       name: 'login',
       components: {
         default: () => import('@views/LogIn.vue'),
+        layout: () => import('../layouts/default.vue'),
         sideBar: () => import('@/components/SideBar.vue')
       }
     },
     {
       path: '/',
-      name: 'home',
+      // name: 'home',
+      redirect: '/',
       components: {
         default: () => import('@views/HomeView.vue'),
-        layout: () => import('../layouts/default.vue')
-      }
+        navHeader: () => import('@layouts/default/navHeader.vue'),
+        sideBar: () => import('@layouts/default/sideBar.vue')
+        // layout: () => import('../layouts/default.vue')
+      },
+      children: [
+        {
+          path: '/',
+          name: 'home',
+          component: () => import('@views/pageTest1.vue')
+        },
+        {
+          path: 'test2',
+          name: 'test2',
+          component: () => import('@views/TestHome.vue')
+        }
+      ]
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
 
     // {

@@ -9,7 +9,8 @@
       "@/*": ["./src/*"],
       "@core/*": ["./src/core/*"],
       "@views/*": ["./src/views/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@layouts/*": ["./src/layouts/*"],
     },
     "allowJs": true,
     "resolveJsonModule": true,

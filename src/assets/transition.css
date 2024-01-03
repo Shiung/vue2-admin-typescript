@@ -1,0 +1,17 @@
+/* page */
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.page-enter-to,
+.page-leave {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: .3s;
+}

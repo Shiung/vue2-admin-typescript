@@ -7,7 +7,7 @@ module.exports = {
         // primary: '#FFCF54'
         primary: 'var(--luTheme-primary)'
       }
-    },
+    }
   },
-  plugins: [],
+  plugins: []
 }

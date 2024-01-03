@@ -1,9 +1,9 @@
-<script setup lang="ts">
-import TheWelcome from '@/components/TheWelcome.vue'
-</script>
-
 <template>
-  <main class="bg-white">
-    <TheWelcome />
+  <main class="text-primary p-2">
+    <Transition name="page" mode="out-in" appear>
+      <keep-alive>
+        <router-view />
+      </keep-alive>
+    </Transition>
   </main>
 </template>

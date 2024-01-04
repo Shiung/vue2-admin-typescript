@@ -4,6 +4,8 @@ import Progress from '@core/progress'
 
 import { useUserStoreHook, useUserStore } from '@/stores/user'
 
+import { emitter } from '@core/mitt'
+
 // state
 const isCollapse = ref<boolean>(true)
 
@@ -26,6 +28,7 @@ const fetch = async () => {
     Progress.start()
     setTimeout(() => {
       console.log('isCollapse', isCollapse.value)
+      emitter.emit('call', 'api fetch done ***')
       resolve(true)
       Progress.done()
     }, 3000)

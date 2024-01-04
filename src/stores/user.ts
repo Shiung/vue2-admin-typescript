@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
-import type { UserType } from './types'
 import { store } from './index'
+
+type UserType = {
+  token: string
+}
 
 export const useUserStore = defineStore({
   id: 'user',

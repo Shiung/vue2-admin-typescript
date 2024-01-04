@@ -1,4 +1,22 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted } from 'vue'
+import { emitter } from '@core/mitt'
+import API from '@/api'
+
+const fetchData = async () => {
+  const res = await API.TestFetch()
+  console.log('res', res)
+}
+
+// watch(this.$router)
+onMounted(() => {
+  fetchData()
+  emitter.on('call', (v) => console.log('v', v))
+})
+
+onUnmounted(() => {
+  emitter.off('call')
+})
 </script>
 
 <template>

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import Progress from '@core/progress'
 
 import type { ToRouterType } from './types'
@@ -16,7 +15,7 @@ const router = new VueRouter({
       name: 'login',
       components: {
         default: () => import('@views/LogIn.vue'),
-        sideBar: () => import('@/components/SideBar.vue')
+        // sideBar: () => import('@/components/SideBar.vue')
       }
     },
     {
@@ -38,6 +37,11 @@ const router = new VueRouter({
           path: 'test2',
           name: 'test2',
           component: () => import('@views/TestHome.vue')
+        },
+        {
+          path: 'test2/:id',
+          name: 'test3',
+          component: () => import('@views/TestHome3.vue')
         }
       ]
     },

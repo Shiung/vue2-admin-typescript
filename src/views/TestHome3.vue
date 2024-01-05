@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { useRoute } from 'vue-router/composables'
+import { useRoute, useRouter } from 'vue-router/composables'
 
 const route123 = useRoute()
+const router = useRouter()
 
 console.log('vueInstance', route123)
 
 console.log('route123', route123)
+
+const clickHandler = (v: string) => {
+  console.log('click ***')
+  router.push(v)
+}
 
 watch(
   () => route123?.params?.id,
@@ -39,5 +45,6 @@ watch(
 
     <router-link to="/test2/456?name=jack">678?name=jack</router-link>
     <router-link to="/test2/456?name=oo">678?name=oo</router-link>
+    <div @click="clickHandler('/test?name=sss')">go to /test?name=sss</div>
   </div>
 </template>

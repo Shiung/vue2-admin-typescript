@@ -75,7 +75,7 @@ export default defineComponent({
           <span>Navigator One</span>
         </template>
         <el-menu-item-group title="Group One">
-          <el-menu-item index="1-1">item one</el-menu-item>
+          <el-menu-item index="/test4">item one</el-menu-item>
           <el-menu-item index="1-2">item one</el-menu-item>
         </el-menu-item-group>
         <el-menu-item-group title="Group Two">

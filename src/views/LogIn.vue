@@ -44,7 +44,7 @@ onUnmounted(() => {
 
 <template>
   <div class="bg-gray-400 text-primary text-9xl h-full flex items-center justify-center">
-    <router-link :to="{ name: 'home' }">回去</router-link>
+    <router-link :to="{ name: 'home' }" class="text-primary">回去</router-link>
     <div class="w-[500px] p-3 bg-white text-[12px] rounded">
       <el-form :model="inputVal" label-width="120px" :rules="inputRules" ref="formRef">
         <el-form-item label="帳號" prop="name">
@@ -54,7 +54,7 @@ onUnmounted(() => {
           <el-input v-model="inputVal.password" id="password" show-password></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button @click="sendHadner">送出</el-button>
+          <el-button type="primary" @click="sendHadner">送出</el-button>
         </el-form-item>
       </el-form>
     </div>

@@ -23,7 +23,7 @@ const router = new VueRouter({
       name: 'home',
       redirect: '/',
       components: {
-        default: () => import('@views/HomeView.vue'),
+        default: () => import('@views/Home/index.vue'),
         navHeader: () => import('@layouts/default/navHeader.vue'),
         sideBar: () => import('@layouts/default/SideBar/index.vue')
       },
@@ -42,7 +42,12 @@ const router = new VueRouter({
           path: 'test2/:id',
           name: 'test3',
           component: () => import('@views/TestHome3.vue')
-        }
+        },
+        {
+          path: 'test4',
+          name: 'test4',
+          component: () => import('@views/Test2Home.vue')
+        },
       ]
     },
     {

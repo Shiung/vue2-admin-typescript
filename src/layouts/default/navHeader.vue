@@ -28,11 +28,9 @@ export default defineComponent({
 <template>
   <div class="bg-white h-[50px] text-primary sticky top-0 z-10 flex justify-between items-center p-2">
     <div class="cursor-pointer text-[20px]" @click="collapseHandler">
-      <!-- <i v-if="isCollapse" class="el-icon-s-unfold"></i>
-      <i v-else class="el-icon-s-fold"></i> -->
       <i :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"></i>
     </div>
-    nav header
+    <div>nav header</div>
   </div>
 </template>
 

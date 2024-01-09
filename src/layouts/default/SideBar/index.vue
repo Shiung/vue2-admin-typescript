@@ -59,7 +59,7 @@ export default defineComponent({
   <div class="bg-[#000] h-screen sticky top-0 overflow-y-scroll">
     <div class="sticky top-0 z-10 h-[50px] bg-[#000] flex items-center justify-center">logo</div>
     <el-menu
-      default-active="2"
+      default-active="/test2"
       class="el-menu-vertical-custom"
       @open="handleOpen"
       @close="handleClose"
@@ -75,11 +75,11 @@ export default defineComponent({
           <span>Navigator One</span>
         </template>
         <el-menu-item-group title="Group One">
-          <el-menu-item index="1-1">item one</el-menu-item>
+          <el-menu-item index="/test4">item one</el-menu-item>
           <el-menu-item index="1-2">item one</el-menu-item>
         </el-menu-item-group>
         <el-menu-item-group title="Group Two">
-          <el-menu-item index="1-3">item three</el-menu-item>
+          <el-menu-item index="/test2/123">item three</el-menu-item>
         </el-menu-item-group>
         <el-submenu index="1-4">
           <template slot="title">item four</template>
@@ -98,10 +98,10 @@ export default defineComponent({
         <i class="el-icon-setting"></i>
         <span slot="title">Navigator Four</span>
       </el-menu-item>
-      <!-- <el-menu-item v-for="idx in list" :index="idx.toString()" :key="idx">
+      <el-menu-item v-for="idx in list" :index="idx.toString()" :key="idx">
         <i class="el-icon-setting"></i>
         <span slot="title">Navigator Four -- {{ idx }}</span>
-      </el-menu-item> -->
+      </el-menu-item>
     </el-menu>
   </div>
 </template>

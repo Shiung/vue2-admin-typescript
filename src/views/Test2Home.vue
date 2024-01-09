@@ -1,13 +1,22 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, inject } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { useUserStore } from '@/stores/user'
+import { SettingStateSymbol, SettingUpdateSymbol } from '@views/Home/stores/ProvideSetting.vue'
 
 import API from '@/api'
 export default defineComponent({
   data() {
     return {
       isCollapse: true
+    }
+  },
+  setup() {
+    const setting = inject(SettingStateSymbol)
+    const settingUpdate = inject(SettingUpdateSymbol)
+    return {
+      setting,
+      settingUpdate
     }
   },
   computed: {
@@ -41,6 +50,10 @@ export default defineComponent({
 </script>
 <template>
   <div>
+    <div>theme: {{ setting?.theme }}</div>
+    <div>language: {{ setting?.language }}</div>
+    <el-button @click.native="settingUpdate && settingUpdate('language', 'ko_kr')">更新language</el-button>
+    <el-button @click.native="settingUpdate && settingUpdate('theme', 'light')">更新theme</el-button>
     <div>{{ storeToken }}</div>
     <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
       <el-radio-button :label="false">展开</el-radio-button>

@@ -1,9 +1,13 @@
 import { defineStore } from 'pinia'
 import { store } from './index'
 
+type SideBarCollapse = {
+  isCollapse: boolean
+}
+
 export const useSidebarCollapseStore = defineStore({
   id: 'sidebarCollapse',
-  state: (): { isCollapse: boolean } => ({
+  state: (): SideBarCollapse => ({
     isCollapse: false
   }),
   getters: {},

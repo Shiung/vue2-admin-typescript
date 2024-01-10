@@ -1,6 +1,8 @@
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
+import { emitter } from '@core/mitt'
+
 type ProgressOptions = Partial<NProgress.NProgressOptions>
 
 class Progress {
@@ -19,10 +21,12 @@ class Progress {
   }
 
   start() {
+    emitter.emit('Nprogress', true)
     NProgress.start()
   }
 
   done() {
+    emitter.emit('Nprogress', false)
     NProgress.done()
   }
 }

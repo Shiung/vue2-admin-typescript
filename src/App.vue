@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { emitter } from '@core/mitt'
 import API from '@/api'
 
 import useTheme from '@/hooks/useTheme'
+
+const isLoading = ref<boolean>(false)
 
 const fetchData = async () => {
   const res = await API.TestFetch()
@@ -11,14 +13,22 @@ const fetchData = async () => {
 }
 
 useTheme()
-// watch(this.$router)
+watch(
+  () => isLoading.value,
+  (n, o) => {
+    console.log('isLoading n', n)
+    console.log('isLoading o', o)
+  }
+)
 onMounted(() => {
   fetchData()
   emitter.on('call', (v) => console.log('v', v))
+  emitter.on('Nprogress', (n) => (isLoading.value = n))
 })
 
 onUnmounted(() => {
   emitter.off('call')
+  emitter.off('Nprogress')
 })
 </script>
 
@@ -33,6 +43,8 @@ onUnmounted(() => {
       </keep-alive>
       <router-view />
     </div>
+
+    <div v-if="isLoading" class="block w-screen h-screen fixed top-0 left-0 z-[1030] bg-[rgba(0,0,0,.3)]" @click="() => {}"></div>
   </div>
 </template>
 

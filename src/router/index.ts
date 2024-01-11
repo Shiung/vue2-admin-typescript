@@ -1,14 +1,10 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Progress from '@core/progress'
+import { createRouter, createWebHistory } from 'vue-router'
+// import Progress from '@core/progress'
 
-import type { ToRouterType } from './types'
+// import type { ToRouterType } from './types'
 
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  mode: 'history',
-  base: import.meta.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/login',
@@ -52,10 +48,10 @@ const router = new VueRouter({
         },
       ]
     },
-    {
-      path: '*',
-      redirect: '/'
-    }
+    // {
+    //   path: '*',
+    //   redirect: '/'
+    // }
 
     // {
     //   path: '/',
@@ -95,11 +91,11 @@ const router = new VueRouter({
   ]
 })
 
-router.beforeEach((to: ToRouterType, from, next) => {
-  Progress.start()
-  console.log('to', to)
-  next()
-  Progress.done()
-})
+// router.beforeEach((to: ToRouterType, from, next) => {
+//   Progress.start()
+//   console.log('to', to)
+//   next()
+//   Progress.done()
+// })
 
 export default router

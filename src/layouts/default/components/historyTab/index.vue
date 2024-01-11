@@ -6,7 +6,7 @@ export default {
 
 <script lang="ts" setup>
 import { watch, reactive, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router/composables'
+import { useRoute, useRouter } from 'vue-router'
 import type { State } from './types'
 import { tabConf } from './config'
 const route = useRoute()
@@ -74,35 +74,33 @@ watch(
 </template>
 
 <style lang="scss" scoped>
-::v-deep {
-  .el-tabs--card {
-    .el-tabs__header {
+:deep(.el-tabs--card) {
+  .el-tabs__header {
+    border: none;
+    .el-tabs__nav {
       border: none;
-      .el-tabs__nav {
-        border: none;
-      }
+    }
 
-      .el-tabs__item {
-        border: 1px solid rgba(0, 0, 0, 0.1) !important;
-        border-radius: 10px 10px 0 0;
-        &:not(:first-of-type) {
-          margin-left: 2px;
-        }
+    .el-tabs__item {
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+      border-radius: 10px 10px 0 0;
+      &:not(:first-of-type) {
+        margin-left: 2px;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--luTheme-primary);
+        transition: 0.3s;
+      }
+      &.is-active,
+      &:hover {
         &::after {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 2px;
-          bottom: 0;
-          left: 0;
-          background-color: var(--luTheme-primary);
-          transition: 0.3s;
-        }
-        &.is-active,
-        &:hover {
-          &::after {
-            width: 100%;
-          }
+          width: 100%;
         }
       }
     }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
-import { Message } from 'element-ui'
+// import { Message } from 'element-ui'
+import { ElMessage } from 'element-plus'
 
 let timeoutRef: ReturnType<typeof setTimeout>
 
@@ -28,7 +29,7 @@ const sendHadner = () => {
 onMounted(() => {
   console.log('login init ***')
   timeoutRef = setTimeout(() => {
-    Message({
+    ElMessage({
       type: 'error',
       message: '錯誤唷',
       // duration: 0,

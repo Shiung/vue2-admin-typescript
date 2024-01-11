@@ -1,9 +1,8 @@
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
-import legacy from '@vitejs/plugin-legacy'
-import vue2 from '@vitejs/plugin-vue2'
-import vue2Jsx from '@vitejs/plugin-vue2-jsx'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { execSync } from 'child_process'
 import { viteMockServe } from 'vite-plugin-mock'
@@ -13,12 +12,8 @@ import packageJson from './package.json'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue2(),
-    vue2Jsx(),
-    legacy({
-      targets: ['ie >= 11'],
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime']
-    }),
+    vue(),
+    vueJsx(),
     createHtmlPlugin({
       inject: {
         data: {

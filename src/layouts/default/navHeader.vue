@@ -3,12 +3,17 @@ import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { useSidebarCollapseStore } from '@/stores/sideBarCollapse'
 
+import historyTab from './components/historyTab/index.vue'
+
 export default defineComponent({
   name: 'navHeaderComp',
   data() {
     return {
       vm: this
     }
+  },
+  components: {
+    historyTab
   },
   computed: {
     ...mapState(useSidebarCollapseStore, ['isCollapse'])
@@ -26,11 +31,14 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="bg-white h-[50px] text-primary sticky top-0 z-10 flex justify-between items-center p-2">
-    <div class="cursor-pointer text-[20px]" @click="collapseHandler">
-      <i :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"></i>
+  <div class="bg-white sticky top-0 z-10">
+    <div class="h-[50px] flex justify-between items-center text-primary p-2 shadow-sm">
+      <div class="cursor-pointer text-[20px]" @click="collapseHandler">
+        <i :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"></i>
+      </div>
+      <div>nav header</div>
     </div>
-    <div>nav header</div>
+    <historyTab />
   </div>
 </template>
 

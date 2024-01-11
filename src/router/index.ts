@@ -20,7 +20,7 @@ const router = new VueRouter({
     },
     {
       path: '/',
-      name: 'home',
+      // name: 'home',
       redirect: '/',
       components: {
         default: () => import('@views/Home/index.vue'),
@@ -30,7 +30,8 @@ const router = new VueRouter({
       children: [
         {
           path: '/',
-          // name: 'home',
+          name: 'home',
+          meta: { requiresAuth: true },
           component: () => import('@views/pageTest1.vue')
         },
         {
@@ -46,6 +47,7 @@ const router = new VueRouter({
         {
           path: 'test4',
           name: 'test4',
+          meta: { requiresAuth: true },
           component: () => import('@views/Test2Home.vue')
         },
       ]

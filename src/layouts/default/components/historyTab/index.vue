@@ -6,11 +6,11 @@ export default {
 
 <script lang="ts" setup>
 import { watch, reactive, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router/composables'
 import type { State } from './types'
 import { tabConf } from './config'
-const route = useRoute()
-const router = useRouter()
+import useNav from '@/hooks/useNav'
+
+const { route, router } = useNav()
 
 const states = reactive<State>({
   editableTabsValue: '',
@@ -27,14 +27,15 @@ const tabClickHandler = () => {
 }
 
 const tabRemoveHandler = (name: string) => {
-  const removeIndex = states.editableTabs.findIndex(tab => tab.name === name)
+  const removeIndex = states.editableTabs.findIndex((tab) => tab.name === name)
   const isActiveTab = states.editableTabs[removeIndex].name === states.editableTabsValue
   if (removeIndex === -1) return
+  if (isActiveTab) {
+    const changeTabName = states.editableTabs[removeIndex === 0 ? 1 : removeIndex - 1].name
+    states.editableTabsValue = changeTabName
+    router.push({ name: changeTabName })
+  }
   states.editableTabs = states.editableTabs.filter((_, idx) => idx !== removeIndex)
-  if (!isActiveTab) return
-  const changeTabName = states.editableTabs[removeIndex === 0 ? 1 : removeIndex - 1].name
-  states.editableTabsValue = changeTabName
-  router.push({ name: changeTabName })
 }
 
 watch(
@@ -74,35 +75,33 @@ watch(
 </template>
 
 <style lang="scss" scoped>
-::v-deep {
-  .el-tabs--card {
-    .el-tabs__header {
+:deep(.el-tabs--card) {
+  .el-tabs__header {
+    border: none;
+    .el-tabs__nav {
       border: none;
-      .el-tabs__nav {
-        border: none;
-      }
+    }
 
-      .el-tabs__item {
-        border: 1px solid rgba(0, 0, 0, 0.1) !important;
-        border-radius: 10px 10px 0 0;
-        &:not(:first-of-type) {
-          margin-left: 2px;
-        }
+    .el-tabs__item {
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+      border-radius: 10px 10px 0 0;
+      &:not(:first-of-type) {
+        margin-left: 2px;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--luTheme-primary);
+        transition: 0.3s;
+      }
+      &.is-active,
+      &:hover {
         &::after {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 2px;
-          bottom: 0;
-          left: 0;
-          background-color: var(--luTheme-primary);
-          transition: 0.3s;
-        }
-        &.is-active,
-        &:hover {
-          &::after {
-            width: 100%;
-          }
+          width: 100%;
         }
       }
     }

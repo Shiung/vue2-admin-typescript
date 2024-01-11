@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router/composables'
+import useNav from '@/hooks/useNav'
 
-const route123 = useRoute()
-const router = useRouter()
+const { route: route123, router } = useNav()
 
 console.log('vueInstance', route123)
 
@@ -39,7 +38,7 @@ watch(
 
 <template>
   <div>
-    this is home 3
+    <div>this is test home 3</div>
     <router-link to="/test2/abc">abc</router-link>
     <router-link to="/test2/456">456</router-link>
 

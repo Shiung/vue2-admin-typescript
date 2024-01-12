@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, withDefaults } from 'vue'
+import { withDefaults } from 'vue'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 

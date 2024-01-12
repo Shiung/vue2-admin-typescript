@@ -3,17 +3,12 @@ import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { useSidebarCollapseStore } from '@/stores/sideBarCollapse'
 
-import historyTab from './components/historyTab/index.vue'
-
 export default defineComponent({
   name: 'navHeaderComp',
   data() {
     return {
       vm: this
     }
-  },
-  components: {
-    historyTab
   },
   computed: {
     ...mapState(useSidebarCollapseStore, ['isCollapse'])
@@ -38,7 +33,8 @@ export default defineComponent({
       </div>
       <div>nav header</div>
     </div>
-    <historyTab />
+
+    <portal-target name="historyTabDom" />
   </div>
 </template>
 

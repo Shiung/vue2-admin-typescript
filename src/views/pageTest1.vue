@@ -1,5 +1,11 @@
+<script lang="ts">
+export default {
+  name: 'homeView'
+}
+</script>
+
 <script setup lang="ts">
-import { onMounted, onActivated, onDeactivated, inject, watch } from 'vue'
+import { onMounted, onUnmounted, onActivated, onDeactivated, inject, watch } from 'vue'
 import { SettingStateSymbol, SettingUpdateSymbol } from '@views/Home/stores/ProvideSetting.vue'
 import slotTest from '@/components/slotTest.vue'
 
@@ -21,7 +27,11 @@ const handeler = (v: string) => {
 }
 
 onMounted(() => {
-  console.log('mounted')
+  console.log('homeView mounted')
+})
+
+onUnmounted(() => {
+  console.log('homeView destory')
 })
 
 onActivated(() => {

@@ -8,12 +8,15 @@ import { store } from './stores'
 import { setupProdMockServer } from './mock/mockProdServer'
 import { setThemeVariable } from './styles/theme'
 
+import PortalVue from 'portal-vue'
+
 import './assets/main.css'
 import './styles/tailwind.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(ElementUI)
 Vue.use(PiniaVuePlugin)
+Vue.use(PortalVue)
 
 setupProdMockServer()
 setThemeVariable()

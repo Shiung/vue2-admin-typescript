@@ -1,16 +1,18 @@
 <script lang="ts">
 export default {
-  name: 'historyTab'
+  name: 'HistoryTab'
 }
 </script>
 
 <script lang="ts" setup>
-import { watch, reactive, computed } from 'vue'
+import { watch, reactive, computed, defineEmits } from 'vue'
 import type { State } from './types'
 import { tabConf } from './config'
 import useNav from '@/hooks/useNav'
 
 const { route, router } = useNav()
+
+const emit = defineEmits<{ (e: 'remove-cache', name: string): void }>()
 
 const states = reactive<State>({
   editableTabsValue: '',
@@ -30,6 +32,7 @@ const tabRemoveHandler = (name: string) => {
   const removeIndex = states.editableTabs.findIndex((tab) => tab.name === name)
   const isActiveTab = states.editableTabs[removeIndex].name === states.editableTabsValue
   if (removeIndex === -1) return
+  emit('remove-cache', name)
   if (isActiveTab) {
     const changeTabName = states.editableTabs[removeIndex === 0 ? 1 : removeIndex - 1].name
     states.editableTabsValue = changeTabName

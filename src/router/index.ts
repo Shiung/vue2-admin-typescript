@@ -95,9 +95,14 @@ const router = new VueRouter({
   ]
 })
 
-router.beforeEach((to: ToRouterType, from, next) => {
+router.beforeEach(async (to: ToRouterType, from, next) => {
+  const { meta } = to
   Progress.start()
-  console.log('to', to)
+  if (meta?.requiresAuth) {
+    // check Auth token
+    // next({ name: 'login', replace: true })
+  }
+  console.log('to router', to)
   next()
   Progress.done()
 })

@@ -3,8 +3,11 @@ import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { emitter } from '@core/mitt'
 import API from '@/api'
 
+import GlobalLoading from '@/components/GlobalLoading.vue'
+
 import useTheme from '@/hooks/useTheme'
 
+const isInit = ref<boolean>(false)
 const isLoading = ref<boolean>(false)
 
 const fetchData = async () => {
@@ -24,6 +27,7 @@ onMounted(() => {
   fetchData()
   emitter.on('call', (v) => console.log('v', v))
   emitter.on('Nprogress', (n) => (isLoading.value = n))
+  setTimeout(() => (isInit.value = true), 2000)
 })
 
 onUnmounted(() => {
@@ -34,17 +38,20 @@ onUnmounted(() => {
 
 <template>
   <div id="app" class="flex min-h-screen">
-    <keep-alive include="sideBarComp">
-      <router-view name="sideBar" />
-    </keep-alive>
-    <div class="flex-1 bg-[#ccc] overflow-x-auto">
-      <keep-alive include="navHeaderComp">
-        <router-view name="navHeader" />
+    <template v-if="isInit">
+      <keep-alive include="sideBarComp">
+        <router-view name="sideBar" />
       </keep-alive>
-      <router-view />
-    </div>
+      <div class="flex-1 bg-[#ccc] overflow-x-auto">
+        <keep-alive include="navHeaderComp">
+          <router-view name="navHeader" />
+        </keep-alive>
+        <router-view />
+      </div>
+    </template>
 
-    <div v-if="isLoading" class="block w-screen h-screen fixed top-0 left-0 z-[1030] bg-[rgba(0,0,0,.3)]" @click="() => {}"></div>
+    <GlobalLoading v-else :width="50" :height="50" :color="'var(--luTheme-primary)'" />
+    <div v-if="isInit && isLoading" class="block w-screen h-screen fixed top-0 left-0 z-[1030] bg-[rgba(0,0,0,.3)]" @click="() => {}"></div>
   </div>
 </template>
 

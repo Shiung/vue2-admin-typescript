@@ -50,8 +50,12 @@ onUnmounted(() => {
       </div>
     </template>
 
-    <GlobalLoading v-else :width="50" :height="50" :color="'var(--luTheme-primary)'" />
-    <div v-if="isInit && isLoading" class="block w-screen h-screen fixed top-0 left-0 z-[1030] bg-[rgba(0,0,0,.3)]" @click="() => {}"></div>
+    <GlobalLoading v-else :width="80" :height="80" loader="dots" :color="'var(--luTheme-primary)'" />
+    <div
+      v-if="isInit && isLoading"
+      class="block w-screen h-screen fixed top-0 left-0 z-[1030] bg-[rgba(0,0,0,.3)] backdrop-blur-sm"
+      @click="() => {}"
+    ></div>
   </div>
 </template>
 

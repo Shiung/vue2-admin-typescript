@@ -1,3 +1,9 @@
+<script lang="ts">
+export default {
+  name: 'test2View'
+}
+</script>
+
 <script setup lang="ts">
 import { ref, onMounted, onActivated, onDeactivated } from 'vue'
 import Progress from '@core/progress'

@@ -1,5 +1,6 @@
 @import "./base.css";
 @import "./transition.css";
+@import "./nprogress.css";
 
 /* #app {
   max-width: 1280px;

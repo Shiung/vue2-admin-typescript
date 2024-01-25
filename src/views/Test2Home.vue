@@ -6,6 +6,7 @@ import { SettingStateSymbol, SettingUpdateSymbol } from '@views/Home/stores/Prov
 
 import API from '@/api'
 export default defineComponent({
+  name: 'test4View',
   data() {
     return {
       isCollapse: true

@@ -7,18 +7,8 @@ export default defineComponent({
   name: 'sideBarComp',
   data() {
     return {
-      list: Array.from({ length: 20 }, (_, idx) => idx + 5),
-      // menuData: [
-      //   {
-      //     title: 'Navigator One',
-      //     icon: 'el-icon-location',
-      //     children: [
-      //       {
-      //         title: 
-      //       }
-      //     ]
-      //   }
-      // ]
+      menuActive: '',
+      list: Array.from({ length: 20 }, (_, idx) => idx + 5)
     }
   },
   computed: {
@@ -51,6 +41,14 @@ export default defineComponent({
     setTimeout(() => {
       this.list = Array.from({ length: 10 }, (_, idx) => idx + 5)
     }, 5000)
+  },
+  watch: {
+    $route: {
+      handler(cur) {
+        this.menuActive = cur.path
+      },
+      immediate: true
+    }
   }
 })
 </script>
@@ -59,7 +57,7 @@ export default defineComponent({
   <div class="bg-[#000] h-screen sticky top-0 overflow-y-scroll">
     <div class="sticky top-0 z-10 h-[50px] bg-[#000] flex items-center justify-center">logo</div>
     <el-menu
-      default-active="/test2"
+      :default-active="menuActive"
       class="el-menu-vertical-custom"
       @open="handleOpen"
       @close="handleClose"
@@ -71,8 +69,9 @@ export default defineComponent({
     >
       <el-submenu index="1">
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>Navigator One</span>
+          <!-- <i class="el-icon-location"></i> -->
+          <i class="el-icon-custom">1</i>
+          <span class="w-[118px] inline-block truncate">Navigator</span>
         </template>
         <el-menu-item-group title="Group One">
           <el-menu-item index="/test4">item one</el-menu-item>
@@ -100,7 +99,7 @@ export default defineComponent({
       </el-menu-item>
       <el-menu-item v-for="idx in list" :index="idx.toString()" :key="idx">
         <i class="el-icon-setting"></i>
-        <span slot="title">Navigator Four -- {{ idx }}</span>
+        <span slot="title" class="w-[130px] inline-block truncate">Navigator Four -- {{ idx }}</span>
       </el-menu-item>
     </el-menu>
   </div>

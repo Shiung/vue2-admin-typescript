@@ -7,6 +7,7 @@ import vue2Jsx from '@vitejs/plugin-vue2-jsx'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { execSync } from 'child_process'
 import { viteMockServe } from 'vite-plugin-mock'
+import svgLoader from 'vite-svg-loader'
 
 import packageJson from './package.json'
 
@@ -39,7 +40,8 @@ export default defineConfig({
       //   import { setupProdMockServer } from './mockProdServer';
       //   setupProdMockServer();
       // `
-    })
+    }),
+    svgLoader()
   ],
   server: {
     // 是否开启 https

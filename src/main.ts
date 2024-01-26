@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import type { Directive } from 'vue'
 import { PiniaVuePlugin } from 'pinia'
 import ElementUI from 'element-ui'
 
@@ -10,6 +11,8 @@ import { setThemeVariable } from './styles/theme'
 
 import PortalVue from 'portal-vue'
 
+import * as directives from './directives'
+
 import './assets/main.css'
 import './styles/tailwind.css'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -17,6 +20,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 Vue.use(PiniaVuePlugin)
 Vue.use(PortalVue)
+
+Object.keys(directives).forEach((key) => {
+  Vue.directive(key, (directives as { [key: string]: Directive })[key])
+})
 
 setupProdMockServer()
 setThemeVariable()

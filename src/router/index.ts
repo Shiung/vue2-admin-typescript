@@ -24,7 +24,7 @@ const router = new VueRouter({
       redirect: '/',
       components: {
         default: () => import('@views/Home/index.vue'),
-        navHeader: () => import('@layouts/default/navHeader.vue'),
+        navHeader: () => import('@layouts/default/NavHeader/index.vue'),
         sideBar: () => import('@layouts/default/SideBar/index.vue')
       },
       children: [

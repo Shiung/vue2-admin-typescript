@@ -3,12 +3,17 @@ import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { useSidebarCollapseStore } from '@/stores/sideBarCollapse'
 
+import UserCard from './components/UserCard.vue'
+
 export default defineComponent({
   name: 'navHeaderComp',
   data() {
     return {
       vm: this
     }
+  },
+  components: {
+    UserCard
   },
   computed: {
     ...mapState(useSidebarCollapseStore, ['isCollapse'])
@@ -20,7 +25,10 @@ export default defineComponent({
     }
   },
   mounted() {
-    console.log('mounted navHeader layout')
+    console.log('clickOutside mounted navHeader layout')
+  },
+  destroyed() {
+    console.log('clickOutside navHeader unmounted')
   }
 })
 </script>
@@ -31,7 +39,8 @@ export default defineComponent({
       <div class="cursor-pointer text-[20px]" @click="collapseHandler">
         <i :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"></i>
       </div>
-      <div>nav header</div>
+      <!-- <div>nav header</div> -->
+      <UserCard />
     </div>
 
     <portal-target name="historyTabDom" />

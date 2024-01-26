@@ -5,7 +5,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { watch, reactive, computed, defineEmits } from 'vue'
+import { watch, reactive, computed } from 'vue'
 import type { State } from './types'
 import { tabConf } from './config'
 import useNav from '@/hooks/useNav'

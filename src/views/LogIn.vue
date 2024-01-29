@@ -81,8 +81,9 @@ onUnmounted(() => {
 }
 
 .emptyRequireMark {
-  color: #f00;
   :deep(.el-form-item__label) {
+    padding-bottom: 0;
+    line-height: 30px;
     &::before {
       content: unset !important;
     }

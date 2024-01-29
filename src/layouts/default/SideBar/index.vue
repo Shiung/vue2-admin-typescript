@@ -2,6 +2,8 @@
 import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { useSidebarCollapseStore } from '@/stores/sideBarCollapse'
+import Svg_Logo from '@/assets/svg/logo.svg'
+import Backstage from '@/assets/svg/backstage.svg'
 
 export default defineComponent({
   name: 'sideBarComp',
@@ -10,6 +12,10 @@ export default defineComponent({
       menuActive: '',
       list: Array.from({ length: 20 }, (_, idx) => idx + 5)
     }
+  },
+  components: {
+    Svg_Logo,
+    Backstage
   },
   computed: {
     ...mapState(useSidebarCollapseStore, ['isCollapse'])
@@ -55,7 +61,12 @@ export default defineComponent({
 
 <template>
   <div class="bg-[#000] h-screen sticky top-0 overflow-y-scroll">
-    <div class="sticky top-0 z-10 h-[50px] bg-[#000] flex items-center justify-center">logo</div>
+    <div class="sticky top-0 z-10 h-[50px] bg-[#000]">
+      <div class="flex items-center justify-center scale-[0.7]">
+        <Svg_Logo />
+        <Backstage v-if="!isCollapse" class="ml-2 mt-2 [&>path]:fill-white" />
+      </div>
+    </div>
     <el-menu
       :default-active="menuActive"
       class="el-menu-vertical-custom"

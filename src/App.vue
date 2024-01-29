@@ -42,7 +42,7 @@ onUnmounted(() => {
       <keep-alive include="sideBarComp">
         <router-view name="sideBar" />
       </keep-alive>
-      <div class="flex-1 bg-[#ccc] overflow-x-auto">
+      <div class="flex-1 overflow-x-auto">
         <keep-alive include="navHeaderComp">
           <router-view name="navHeader" />
         </keep-alive>

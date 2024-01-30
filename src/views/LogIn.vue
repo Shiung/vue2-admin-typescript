@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, getCurrentInstance } from 'vue'
 import { Message } from 'element-ui'
 import Img_login from '@/assets/img/login.png'
 import Svg_Logo from '@/assets/svg/logo.svg'
@@ -7,14 +7,16 @@ import Backstage from '@/assets/svg/backstage.svg'
 
 let timeoutRef: ReturnType<typeof setTimeout>
 
+const vueInstance = getCurrentInstance()
+
 const formRef = ref()
 const inputVal = reactive({
   name: '',
   password: ''
 })
 const inputRules = reactive({
-  name: [{ required: true, message: '帳號不能為空', trigger: ['blur', 'change'] }],
-  password: [{ required: true, message: '密碼不能為空', trigger: ['blur', 'change'] }]
+  name: [{ required: true, message: vueInstance?.proxy.$i18n('login-accountError'), trigger: ['blur', 'change'] }],
+  password: [{ required: true, message: vueInstance?.proxy.$i18n('login-passwordError'), trigger: ['blur', 'change'] }]
 })
 
 const sendHadner = () => {
@@ -46,7 +48,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="h-full flex items-center justify-between">
+  <div class="h-full flex items-center justify-between bg-white">
     <div class="flex-[2_2_0%] flex-shrink-0 flex items-center justify-center border-r border-gray-100">
       <el-image :src="Img_login" fit="contain"></el-image>
     </div>
@@ -58,14 +60,14 @@ onUnmounted(() => {
           <router-link :to="{ name: 'home' }" class="text-primary ml-5">回去</router-link>
         </div>
         <el-form :model="inputVal" label-width="120px" label-position="top" :rules="inputRules" ref="formRef">
-          <el-form-item class="emptyRequireMark" label="帳號" prop="name">
-            <el-input v-model="inputVal.name" id="name" autocomplete="email" placeholder="this is email"></el-input>
+          <el-form-item class="emptyRequireMark" :label="$i18n('login-account')" prop="name">
+            <el-input v-model="inputVal.name" id="name" autocomplete="email" :placeholder="$i18n('login-accountPlaceholder')"></el-input>
           </el-form-item>
-          <el-form-item class="emptyRequireMark" label="密碼" prop="password">
-            <el-input v-model="inputVal.password" id="password" show-password></el-input>
+          <el-form-item class="emptyRequireMark" :label="$i18n('login-password')" prop="password">
+            <el-input v-model="inputVal.password" id="password" show-password :placeholder="$i18n('login-passwordPlaceholder')"></el-input>
           </el-form-item>
           <el-form-item class="mt-[150px]">
-            <el-button type="primary" class="w-full !bg-primary" @click="sendHadner">送出</el-button>
+            <el-button type="primary" class="w-full !bg-primary" @click="sendHadner">{{ $i18n('login-button') }}</el-button>
           </el-form-item>
         </el-form>
       </div>

@@ -60,11 +60,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="bg-[#000] h-screen sticky top-0 overflow-y-scroll">
-    <div class="sticky top-0 z-10 h-[50px] bg-[#000]">
+  <div class="bg-[var(--luTheme-sideBar-bg)] h-screen sticky top-0 overflow-y-scroll shadow-[1px_0_2px_0_rgba(0,0,0,0.05)] z-[11]">
+    <div class="sticky top-0 z-10 h-[50px] bg-[var(--luTheme-sideBar-bg)]">
       <div class="flex items-center justify-center scale-[0.7]">
         <Svg_Logo />
-        <Backstage v-if="!isCollapse" class="ml-2 mt-2 [&>path]:fill-white" />
+        <Backstage v-if="!isCollapse" class="ml-2 mt-2 [&>path]:fill-black" />
       </div>
     </div>
     <el-menu
@@ -74,15 +74,16 @@ export default defineComponent({
       @close="handleClose"
       @select="handleChange"
       :collapse="isCollapse"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
+      background-color="var(--luTheme-sideBar-bg)"
+      text-color="var(--luTheme-sideBar-textColor)"
+      active-text-color="var(--luTheme-sideBar-activeTextColor)"
     >
       <el-submenu index="1">
         <template slot="title">
           <!-- <i class="el-icon-location"></i> -->
           <i class="el-icon-custom">1</i>
-          <span class="w-[118px] inline-block truncate">Navigator</span>
+          <!-- <span class="w-[118px] inline-block truncate">Navigator</span> -->
+          <span class="w-[118px] inline-block truncate">{{ $i18n('nav-orderManage') }}</span>
         </template>
         <el-menu-item-group title="Group One">
           <el-menu-item index="/test4">item one</el-menu-item>
@@ -123,5 +124,12 @@ export default defineComponent({
     min-height: 400px;
   }
   border-right: none;
+
+  .el-menu-item,
+  :deep(.el-submenu__title) {
+    &:hover {
+      background-color: var(--luTheme-sideBar-bgHover) !important;
+    }
+  }
 }
 </style>

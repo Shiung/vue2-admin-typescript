@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import LuSelector from '@/components/LuSelector.vue'
 
-const ls: Array<{ key: string }> = [{ key: 'changePSW' }, { key: 'logout' }]
+const ls: Array<{ key: string }> = [{ key: 'login-changePsw' }, { key: 'logout-button' }]
 
 const clickHandler = (key: string, callBack: () => void) => {
   console.log('key', key)
@@ -21,7 +21,7 @@ const clickHandler = (key: string, callBack: () => void) => {
 
     <template #dropDown="{ callBack }">
       <ul class="options">
-        <li v-for="{ key } in ls" :key="key" @click="clickHandler(key, callBack)">{{ key }}</li>
+        <li v-for="{ key } in ls" :key="key" @click="clickHandler(key, callBack)">{{ $i18n(key) }}</li>
       </ul>
     </template>
   </LuSelector>

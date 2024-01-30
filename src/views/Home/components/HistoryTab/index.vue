@@ -64,7 +64,7 @@ watch(
 </script>
 
 <template>
-  <div class="historyTab text-primary px-2 pt-2 overflow-x-hidden w-full">
+  <div v-if="states.editableTabs.length > 0" class="historyTab text-primary px-2 pt-2 overflow-x-hidden w-full">
     <el-tabs
       v-model="states.editableTabsValue"
       type="card"
@@ -81,6 +81,7 @@ watch(
 :deep(.el-tabs--card) {
   .el-tabs__header {
     border: none;
+    margin-bottom: 10px;
     .el-tabs__nav {
       border: none;
     }

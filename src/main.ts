@@ -8,6 +8,7 @@ import router from './router'
 import { store } from './stores'
 import { setupProdMockServer } from './mock/mockProdServer'
 import { setThemeVariable } from './styles/theme'
+import I18n from '@/i18n'
 
 import PortalVue from 'portal-vue'
 
@@ -20,6 +21,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 Vue.use(PiniaVuePlugin)
 Vue.use(PortalVue)
+Vue.use(I18n)
 
 Object.keys(directives).forEach((key) => {
   Vue.directive(key, (directives as { [key: string]: Directive })[key])

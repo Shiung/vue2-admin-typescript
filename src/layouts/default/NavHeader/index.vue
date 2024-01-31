@@ -35,10 +35,10 @@ export default defineComponent({
 
 <template>
   <div class="bg-white sticky top-0 z-10">
-    <div class="h-[50px] flex justify-between items-center text-primary p-2 shadow-sm">
-      <div class="cursor-pointer text-[20px]" @click="collapseHandler">
+    <div class="h-[50px] flex justify-end items-center text-primary p-2 shadow-sm">
+      <!-- <div class="cursor-pointer text-[20px]" @click="collapseHandler">
         <i :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"></i>
-      </div>
+      </div> -->
       <!-- <div>nav header</div> -->
       <UserCard />
     </div>
@@ -46,7 +46,3 @@ export default defineComponent({
     <portal-target name="historyTabDom" />
   </div>
 </template>
-
-<!-- <style scoped lang="scss">
-
-</style> -->

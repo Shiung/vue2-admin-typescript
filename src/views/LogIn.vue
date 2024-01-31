@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref, getCurrentInstance } from 'vue'
+import { onUnmounted, reactive, ref, getCurrentInstance } from 'vue'
 import { Message } from 'element-ui'
 import Img_login from '@/assets/img/login.png'
 import Svg_Logo from '@/assets/svg/logo.svg'
@@ -25,22 +25,15 @@ const sendHadner = () => {
     if (v) {
       console.log('成功')
     } else {
+      Message({
+        type: 'error',
+        message: vueInstance?.proxy.$i18n('error-login') as string,
+        duration: 5000
+      })
       return false
     }
   })
 }
-
-onMounted(() => {
-  console.log('login init ***')
-  // timeoutRef = setTimeout(() => {
-  //   Message({
-  //     type: 'error',
-  //     message: '錯誤唷',
-  //     // duration: 0,
-  //     showClose: true
-  //   })
-  // }, 5000)
-})
 
 onUnmounted(() => {
   clearTimeout(timeoutRef)

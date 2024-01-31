@@ -15,6 +15,9 @@ const zhCN: { [key in string]: any } = {
   },
   logout: {
     button: '登出'
+  },
+  error: {
+    login: '栏位有问题'
   }
 }
 

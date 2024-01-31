@@ -81,16 +81,17 @@ watch(
 :deep(.el-tabs--card) {
   .el-tabs__header {
     border: none;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     .el-tabs__nav {
       border: none;
     }
 
     .el-tabs__item {
       border: 1px solid rgba(0, 0, 0, 0.1) !important;
-      border-radius: 10px 10px 0 0;
+      border-radius: 10px;
+      overflow: hidden;
       &:not(:first-of-type) {
-        margin-left: 2px;
+        margin-left: 5px;
       }
       &::after {
         content: '';

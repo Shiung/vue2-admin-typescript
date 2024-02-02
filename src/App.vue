@@ -46,7 +46,8 @@ onUnmounted(() => {
         <keep-alive include="navHeaderComp">
           <router-view name="navHeader" />
         </keep-alive>
-        <router-view />
+        <router-view v-if="!$route.meta?.lock" />
+        <router-view v-else name="permissions" />
       </div>
     </template>
 

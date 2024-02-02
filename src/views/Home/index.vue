@@ -15,6 +15,12 @@ import useNav from '@/hooks/useNav'
 const { route } = useNav()
 
 const excuteRouteCache = ref<Array<string>>([])
+const includeRouteCache = ref<Array<string>>([])
+
+const routerCahchHandler = (ls: any) => {
+  console.log('routerCahchHandler', ls)
+  includeRouteCache.value = ls
+}
 
 const removeRouterCacheHandler = (n: string) => {
   if (!n) return
@@ -37,11 +43,12 @@ onMounted(() => {
 <template>
   <main class="text-primary p-2">
     <portal to="historyTabDom">
-      <HistoryTab @remove-cache="removeRouterCacheHandler" />
+      <HistoryTab @remove-cache="removeRouterCacheHandler" @router-cache="routerCahchHandler" />
     </portal>
     <ProviderSetting>
       <Transition name="page" mode="out-in" appear>
-        <keep-alive :exclude="excuteRouteCache">
+        <!-- <keep-alive :exclude="excuteRouteCache" :include="['']"> -->
+        <keep-alive :include="includeRouteCache">
           <router-view />
         </keep-alive>
       </Transition>

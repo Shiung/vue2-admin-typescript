@@ -5,12 +5,14 @@ import { useSidebarCollapseStore } from '@/stores/sideBarCollapse'
 import Svg_Logo from '@/assets/svg/logo.svg'
 import Backstage from '@/assets/svg/backstage.svg'
 
+import { menuConf } from './config'
+
 export default defineComponent({
   name: 'sideBarComp',
   data() {
     return {
       menuActive: '',
-      list: Array.from({ length: 20 }, (_, idx) => idx + 5)
+      menuLs: menuConf
     }
   },
   components: {
@@ -41,9 +43,6 @@ export default defineComponent({
   },
   mounted() {
     console.log('mounted sidebar layout')
-    setTimeout(() => {
-      this.list = Array.from({ length: 10 }, (_, idx) => idx + 5)
-    }, 5000)
   },
   watch: {
     $route: {
@@ -84,41 +83,23 @@ export default defineComponent({
         text-color="var(--luTheme-sideBar-textColor)"
         active-text-color="var(--luTheme-sideBar-activeTextColor)"
       >
-        <el-submenu index="1">
-          <template slot="title">
-            <!-- <i class="el-icon-location"></i> -->
-            <i class="el-icon-custom">1</i>
-            <!-- <span class="w-[118px] inline-block truncate">Navigator</span> -->
-            <span class="w-[118px] inline-block truncate">{{ $i18n('nav-orderManage') }}</span>
-          </template>
-          <el-menu-item-group title="Group One">
-            <el-menu-item index="/test4">item one</el-menu-item>
-            <el-menu-item index="1-2">item one</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="/test2/123">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">item four</template>
-            <el-menu-item index="/">item one</el-menu-item>
+        <template v-for="menu in menuLs">
+          <el-submenu v-if="menu.children" :key="menu.index" :index="menu.index">
+            <template slot="title">
+              <i :class="[menu.iconCss, '[&>svg]:inline']">
+                <component :is="menu.iconEL" />
+              </i>
+              <span class="w-[118px] inline-block truncate">{{ $i18n(menu.titleI18n) }}</span>
+            </template>
+            <el-menu-item v-for="child in menu.children" :index="child.index" :key="child.index">{{ $i18n(child.titleI18n) }}</el-menu-item>
           </el-submenu>
-        </el-submenu>
-        <el-menu-item index="/test2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">Navigator Two</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <i class="el-icon-document"></i>
-          <span slot="title">Navigator Three</span>
-        </el-menu-item>
-        <el-menu-item index="/login">
-          <i class="el-icon-setting"></i>
-          <span slot="title">Navigator Four</span>
-        </el-menu-item>
-        <el-menu-item v-for="idx in list" :index="idx.toString()" :key="idx">
-          <i class="el-icon-setting"></i>
-          <span slot="title" class="w-[130px] inline-block truncate">Navigator Four -- {{ idx }}</span>
-        </el-menu-item>
+          <el-menu-item v-else :key="menu.index" :index="menu.index" :disabled="menu.disabled">
+            <i :class="[menu.iconCss, '[&>svg]:inline', 'svgActive']">
+              <component :is="menu.iconEL" />
+            </i>
+            <span slot="title" class="w-[130px] inline-block truncate">{{ menu.titleI18n }}</span>
+          </el-menu-item>
+        </template>
       </el-menu>
     </div>
   </div>
@@ -136,6 +117,17 @@ export default defineComponent({
   :deep(.el-submenu__title) {
     &:hover {
       background-color: var(--luTheme-sideBar-bgHover) !important;
+    }
+  }
+  .el-menu-item {
+    &.is-active {
+      .svgActive {
+        :deep(svg) {
+          path {
+            fill: var(--luTheme-sideBar-activeTextColor);
+          }
+        }
+      }
     }
   }
 }

@@ -2,6 +2,7 @@ type TableTab = {
   title: string
   name: string
   content: string
+  params?: { [key in string]: string }
 }
 
 interface State {

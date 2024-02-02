@@ -5,14 +5,17 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { watch, reactive, computed } from 'vue'
+import { watch, reactive, computed, onUnmounted } from 'vue'
 import type { State } from './types'
 import { tabConf } from './config'
 import useNav from '@/hooks/useNav'
 
 const { route, router } = useNav()
 
-const emit = defineEmits<{ (e: 'remove-cache', name: string): void }>()
+const emit = defineEmits<{
+  (e: 'remove-cache', name: string): void
+  (e: 'router-cache', ls: Array<string>): void
+}>()
 
 const states = reactive<State>({
   editableTabsValue: '',
@@ -22,8 +25,10 @@ const states = reactive<State>({
 
 const isTabCloseAble = computed(() => states.editableTabs.length > 1)
 
-const tabClickHandler = () => {
+const tabClickHandler = (cur: any) => {
   const routerPushName = states.editableTabsValue
+  const routerPushParams = states.editableTabs
+  console.log('tabClickHandler', route.name, routerPushName, routerPushParams, cur)
   if (route.name === routerPushName) return
   router.push({ name: routerPushName })
 }
@@ -42,6 +47,18 @@ const tabRemoveHandler = (name: string) => {
 }
 
 watch(
+  () => states.editableTabs,
+  (tab) => {
+    console.log('router name abc *** tab:', tab)
+    emit(
+      'router-cache',
+      tab.map(({ name }) => `${name}View`)
+    )
+  },
+  { immediate: true, deep: true }
+)
+
+watch(
   () => route.path,
   (cur) => {
     const routerName = route.name as string
@@ -52,15 +69,20 @@ watch(
       const match = tabConf?.[routerName]
       if (!match) return
       states.editableTabs.push({
-        name: match.name,
+        name: routerName,
         title: match.title,
-        content: `content ${match.content}`
+        content: `content ${match.content}`,
+        ...(match.params && { params: match.params })
       })
       states.editableTabsValue = routerName
     }
   },
   { immediate: true }
 )
+
+onUnmounted(() => {
+  console.log('historyTab destory***')
+})
 </script>
 
 <template>

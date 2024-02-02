@@ -8,7 +8,7 @@
 .page-enter-to,
 .page-leave {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 .page-enter-active,

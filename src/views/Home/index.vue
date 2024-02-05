@@ -46,8 +46,7 @@ onMounted(() => {
       <HistoryTab @remove-cache="removeRouterCacheHandler" @router-cache="routerCahchHandler" />
     </portal>
     <ProviderSetting>
-      <Transition name="page" mode="out-in" appear>
-        <!-- <keep-alive :exclude="excuteRouteCache" :include="['']"> -->
+      <Transition name="page-cache" mode="out-in" appear>
         <keep-alive :include="includeRouteCache">
           <router-view />
         </keep-alive>

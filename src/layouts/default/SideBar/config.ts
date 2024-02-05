@@ -44,8 +44,8 @@ const menuConf: MenuList = [
     titleI18n: '盈亏报表',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/report.svg'),
-    index: 'orderManage-2',
-    disabled: true
+    index: '/test2',
+    disabled: false
   },
   {
     titleI18n: '帐号权限',

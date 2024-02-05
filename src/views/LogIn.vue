@@ -5,8 +5,11 @@ import Img_login from '@/assets/img/login.png'
 import Svg_Logo from '@/assets/svg/logo.svg'
 import Backstage from '@/assets/svg/backstage.svg'
 
+import useNav from '@/hooks/useNav'
+
 let timeoutRef: ReturnType<typeof setTimeout>
 
+const { router } = useNav()
 const vueInstance = getCurrentInstance()
 
 const formRef = ref()
@@ -24,6 +27,7 @@ const sendHadner = () => {
     console.log('v ===>', v)
     if (v) {
       console.log('成功')
+      router.push({ name: 'home' })
     } else {
       Message({
         type: 'error',
@@ -54,10 +58,16 @@ onUnmounted(() => {
         </div>
         <el-form :model="inputVal" label-width="120px" label-position="top" :rules="inputRules" ref="formRef">
           <el-form-item class="emptyRequireMark" :label="$i18n('login-account')" prop="name">
-            <el-input v-model="inputVal.name" id="name" autocomplete="email" :placeholder="$i18n('login-accountPlaceholder')"></el-input>
+            <el-input v-model="inputVal.name" id="name" autocomplete="username" :placeholder="$i18n('login-accountPlaceholder')"></el-input>
           </el-form-item>
           <el-form-item class="emptyRequireMark" :label="$i18n('login-password')" prop="password">
-            <el-input v-model="inputVal.password" id="password" show-password :placeholder="$i18n('login-passwordPlaceholder')"></el-input>
+            <el-input
+              v-model="inputVal.password"
+              id="password"
+              show-password
+              autocomplete="current-password"
+              :placeholder="$i18n('login-passwordPlaceholder')"
+            ></el-input>
           </el-form-item>
           <el-form-item class="mt-[150px]">
             <el-button type="primary" class="w-full !bg-primary" @click="sendHadner">{{ $i18n('login-button') }}</el-button>

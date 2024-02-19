@@ -2,6 +2,8 @@
 import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { useSidebarCollapseStore } from '@/stores/sideBarCollapse'
+import { useThemeStore } from '@/stores/theme'
+import { ThemeConf } from '@/styles/theme/config'
 import Svg_Logo from '@/assets/svg/logo.svg'
 import Backstage from '@/assets/svg/backstage.svg'
 
@@ -20,7 +22,8 @@ export default defineComponent({
     Backstage
   },
   computed: {
-    ...mapState(useSidebarCollapseStore, ['isCollapse'])
+    ...mapState(useSidebarCollapseStore, ['isCollapse']),
+    ...mapState(useThemeStore, ['theme'])
   },
   methods: {
     ...mapActions(useSidebarCollapseStore, ['SET_COLLAPSE']),
@@ -69,7 +72,11 @@ export default defineComponent({
       <div class="sticky top-0 z-10 h-[50px] bg-[var(--luTheme-sideBar-bg)]">
         <div class="flex items-center justify-center scale-[0.7]">
           <Svg_Logo />
-          <Backstage v-if="!isCollapse" class="ml-2 mt-2 [&>path]:fill-black" />
+          <Backstage
+            v-if="!isCollapse"
+            class="ml-2 mt-2 [&>path]:fill-black"
+            :class="[theme === 'dark' ? '[&>path]:fill-white' : '[&>path]:fill-black']"
+          />
         </div>
       </div>
       <el-menu

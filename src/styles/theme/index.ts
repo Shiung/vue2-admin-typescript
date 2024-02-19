@@ -1,4 +1,4 @@
-import { themesMap } from './config'
+import { themesMap, ThemeConf } from './config'
 import { flattenObj } from '@utils/index'
 
 const removeStyleIfExisted = (prefix: string) => {
@@ -21,6 +21,6 @@ const colorGenerrator = (colors: object, prefix: string) => {
   document.getElementsByTagName('head')[0].appendChild(style)
 }
 
-export const setThemeVariable = () => {
-  colorGenerrator(themesMap, 'luTheme')
+export const setThemeVariable = (type: ThemeConf = ThemeConf.light) => {
+  colorGenerrator(themesMap[type], 'luTheme')
 }

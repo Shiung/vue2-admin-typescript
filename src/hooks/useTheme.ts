@@ -1,21 +1,12 @@
 import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ThemeConf } from '@/styles/theme/config'
+import { setThemeVariable } from '@/styles/theme'
 
-export enum ThemeConf {
-  'dark' = 'dark',
-  'light' = 'light'
-}
-
-// const media = window.matchMedia('(prefers-color-scheme: dark)')
-
-//   media.addEventListener('change', event => {
-//     const newColorScheme = event.matches ? "dark" : "light";
-//   console.log('newColorScheme', newColorScheme)
-//   })
-
-//   console.log('init', media.matches)
+import { useThemeStoreHook } from '@/stores/theme'
 
 const useTheme = () => {
   const theme = ref<ThemeConf>(ThemeConf.dark)
+  const store = useThemeStoreHook()
 
   const media = window.matchMedia('(prefers-color-scheme: dark)')
 
@@ -26,10 +17,14 @@ const useTheme = () => {
 
   watch(
     () => theme.value,
-    (t, ot) => {
-      console.log('useTheme t', t)
-      console.log('useTheme ot', ot)
-    }
+    (t) => {
+      // setThemeVariable(t)
+      // store.SET_THEME(t)
+      const theme = ThemeConf.light
+      setThemeVariable(theme)
+      store.SET_THEME(theme)
+    },
+    { immediate: true }
   )
 
   onMounted(() => {

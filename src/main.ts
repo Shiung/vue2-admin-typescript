@@ -7,7 +7,6 @@ import App from './App.vue'
 import router from './router'
 import { store } from './stores'
 import { setupProdMockServer } from './mock/mockProdServer'
-import { setThemeVariable } from './styles/theme'
 import I18n from '@/i18n'
 
 import PortalVue from 'portal-vue'
@@ -28,7 +27,6 @@ Object.keys(directives).forEach((key) => {
 })
 
 setupProdMockServer()
-setThemeVariable()
 
 new Vue({
   router,

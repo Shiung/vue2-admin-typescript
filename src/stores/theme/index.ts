@@ -1,18 +1,19 @@
 import { defineStore } from 'pinia'
 import { store } from '../index'
+import { ThemeConf } from '@/styles/theme/config'
 
 type ThemeState = {
-  theme: 'dark' | 'light'
+  theme: ThemeConf
 }
 
 export const useThemeStore = defineStore({
   id: 'themeStore',
   state: (): ThemeState => ({
-    theme: 'dark'
+    theme: ThemeConf.dark
   }),
   getters: {},
   actions: {
-    SET_THEME(t: ThemeState['theme']) {
+    SET_THEME(t: ThemeConf) {
       this.theme = t
     }
   }

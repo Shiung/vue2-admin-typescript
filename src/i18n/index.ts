@@ -13,7 +13,7 @@ declare module 'vue/types/vue' {
 const flattenMethod = (o: object) => {
   return flattenObj(o)
 }
-
+// xx-xxx-xxx as key bind
 let i18nMap = flattenMethod(zhCN) as { [key in string]: string }
 
 export default {

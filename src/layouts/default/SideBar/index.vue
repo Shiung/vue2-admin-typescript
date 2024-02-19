@@ -13,6 +13,7 @@ export default defineComponent({
   name: 'sideBarComp',
   data() {
     return {
+      themeConf: ThemeConf,
       menuActive: '',
       menuLs: menuConf
     }
@@ -75,7 +76,7 @@ export default defineComponent({
           <Backstage
             v-if="!isCollapse"
             class="ml-2 mt-2 [&>path]:fill-black"
-            :class="[theme === 'dark' ? '[&>path]:fill-white' : '[&>path]:fill-black']"
+            :class="[theme === themeConf.dark ? '[&>path]:fill-white' : '[&>path]:fill-black']"
           />
         </div>
       </div>
@@ -98,13 +99,15 @@ export default defineComponent({
               </i>
               <span class="w-[118px] inline-block truncate">{{ $i18n(menu.titleI18n) }}</span>
             </template>
-            <el-menu-item v-for="child in menu.children" :index="child.index" :key="child.index">{{ $i18n(child.titleI18n) }}</el-menu-item>
+            <el-menu-item v-for="child in menu.children" :index="child.index" :key="child.index" :disabled="child.disabled">
+              {{ $i18n(child.titleI18n) }}
+            </el-menu-item>
           </el-submenu>
           <el-menu-item v-else :key="menu.index" :index="menu.index" :disabled="menu.disabled">
             <i :class="[menu.iconCss, '[&>svg]:inline', 'svgActive']">
               <component :is="menu.iconEL" />
             </i>
-            <span slot="title" class="w-[130px] inline-block truncate">{{ menu.titleI18n }}</span>
+            <span slot="title" class="w-[130px] inline-block truncate">{{ $i18n(menu.titleI18n) }}</span>
           </el-menu-item>
         </template>
       </el-menu>

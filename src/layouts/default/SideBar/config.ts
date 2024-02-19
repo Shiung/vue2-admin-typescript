@@ -11,47 +11,58 @@ export type MenuList = Array<MenuUnit>
 
 const menuConf: MenuList = [
   {
-    titleI18n: 'nav-orderManage',
+    titleI18n: 'nav-order-manageTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/orderManage.svg'),
     index: 'orderManage',
     children: [
       {
-        titleI18n: '著單查詢',
+        titleI18n: 'nav-order-listTitle',
         index: '/test4'
       },
       {
-        titleI18n: '修改注單',
+        titleI18n: 'nav-order-editResultTitle',
         index: '/test5'
       }
     ]
   },
   {
-    titleI18n: '賽事管理',
+    titleI18n: 'nav-game-manageTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/gameManage.svg'),
     index: '/test2/123',
     disabled: false
   },
   {
-    titleI18n: '玩家管理',
+    titleI18n: 'nav-user-manageTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/memberManage.svg'),
     index: '/login',
     disabled: false
   },
   {
-    titleI18n: '盈亏报表',
+    titleI18n: 'nav-report-listTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/report.svg'),
     index: '/test2',
-    disabled: false
+    disabled: true
   },
   {
-    titleI18n: '帐号权限',
+    titleI18n: 'nav-account-permissionTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/accountManage.svg'),
-    index: '/',
+    index: 'account',
+    children: [
+      {
+        titleI18n: 'nav-account-permissionManageTitle',
+        index: '/'
+      },
+      {
+        titleI18n: 'nav-account-manageTitle',
+        index: '/123',
+        disabled: true
+      }
+    ],
     disabled: false
   }
 ]

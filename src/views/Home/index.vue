@@ -5,12 +5,14 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, defineAsyncComponent } from 'vue'
 import ProviderSetting from '@views/Home/stores/ProvideSetting.vue'
 import Progress from '@core/progress'
 import HistoryTab from './components/HistoryTab/index.vue'
 
 import useNav from '@/hooks/useNav'
+
+const PermissionsDeniedPage = defineAsyncComponent(() => import('@views/PermissionsView.vue'))
 
 const { route } = useNav()
 
@@ -48,9 +50,10 @@ onMounted(() => {
     <ProviderSetting>
       <Transition name="page-cache" mode="out-in" appear>
         <keep-alive :include="includeRouteCache">
-          <router-view />
+          <router-view v-if="!$route.meta?.lock" />
         </keep-alive>
       </Transition>
+      <PermissionsDeniedPage v-if="$route.meta?.lock" />
     </ProviderSetting>
   </main>
 </template>

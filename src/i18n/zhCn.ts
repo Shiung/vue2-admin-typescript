@@ -1,7 +1,25 @@
 const zhCN: { [key in string]: any } = {
   nav: {
-    orderManage: '注單管理',
-    gameManage: '赛事管理'
+    homeTitle: '首頁',
+    order: {
+      manageTitle: '注單管理',
+      listTitle: '注单查询',
+      editResultTitle: '修改注单结果'
+    },
+    game: {
+      manageTitle: '賽事管理'
+    },
+    user: {
+      manageTitle: '玩家管理'
+    },
+    report: {
+      listTitle: '盈亏报表'
+    },
+    account: {
+      permissionTitle: '帐号权限',
+      permissionManageTitle: '权限管理',
+      manageTitle: '帐号管理'
+    }
   },
   login: {
     account: '账号',

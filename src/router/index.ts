@@ -21,12 +21,11 @@ const router = new VueRouter({
       path: '/',
       // name: 'home',
       redirect: '/',
-      meta: { titleI18n: 'homeTitle' },
+      meta: { titleI18n: 'nav-homeTitle' },
       components: {
         default: () => import('@views/Home/index.vue'),
         navHeader: () => import('@layouts/default/NavHeader/index.vue'),
-        sideBar: () => import('@layouts/default/SideBar/index.vue'),
-        permissions: () => import('@views/PermissionsView.vue')
+        sideBar: () => import('@layouts/default/SideBar/index.vue')
       },
       children: [
         {
@@ -44,7 +43,7 @@ const router = new VueRouter({
         {
           path: 'test2/:id?',
           name: 'test3',
-          meta: { requiresAuth: true, titleI18n: 'test3Title' },
+          meta: { requiresAuth: true, titleI18n: 'nav-game-manageTitle' },
           component: () => import('@views/TestHome3.vue')
         },
         {

@@ -43,8 +43,9 @@ onDeactivated(() => {
 })
 </script>
 <template>
-  <!-- <div class="h-[1000px]"> -->
-  <div>
+  <!-- <div class="h-full"> -->
+  <div class="h-[1500px]" ref="dom">
+    <div class="bg-[#ccc] sticky top-0">header</div>
     page1test
     <div>language: {{ setting.language }}</div>
     <div>theme: {{ setting.theme }}</div>

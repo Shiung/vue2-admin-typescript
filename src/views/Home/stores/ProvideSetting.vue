@@ -32,7 +32,7 @@ export default {
 }
 </script>
 <template>
-  <div id="context-setting" :data-lang="state.language" :data-theme="state.theme">
+  <div id="context-setting" class="h-full" :data-lang="state.language" :data-theme="state.theme">
     <slot></slot>
   </div>
 </template>

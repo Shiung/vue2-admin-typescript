@@ -45,7 +45,7 @@ const menuConf: MenuList = [
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/report.svg'),
     index: '/test2',
-    disabled: true
+    disabled: false
   },
   {
     titleI18n: 'nav-account-permissionTitle',

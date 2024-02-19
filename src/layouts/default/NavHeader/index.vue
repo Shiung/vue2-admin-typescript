@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 import type { Route } from 'vue-router'
 import { mapState, mapActions } from 'pinia'
 import { useSidebarCollapseStore } from '@/stores/sideBarCollapse'
+import { emitter } from '@core/mitt'
 
 import UserCard from './components/UserCard.vue'
 
@@ -11,7 +12,9 @@ export default defineComponent({
   data() {
     return {
       vm: this,
-      breadcrumbLs: []
+      breadcrumbLs: [],
+      elHeight: 0,
+      resizeObserverState: new ResizeObserver(() => console.log('init'))
     }
   },
   components: {
@@ -35,19 +38,25 @@ export default defineComponent({
         }, [])
       },
       immediate: true
+    },
+    elHeight(cur) {
+      emitter.emit('navHeight', cur)
     }
   },
   mounted() {
-    console.log('clickOutside mounted navHeader layout')
+    this.resizeObserverState = new ResizeObserver(() => {
+      this.elHeight = (this.$refs.dom as HTMLElement)?.getBoundingClientRect()?.height ?? 0
+    })
+    this.resizeObserverState.observe(this.$refs.dom as HTMLElement)
   },
   destroyed() {
-    console.log('clickOutside navHeader unmounted')
+    this.resizeObserverState.disconnect()
   }
 })
 </script>
 
 <template>
-  <div class="bg-white sticky top-0 z-10">
+  <div class="bg-white sticky top-0 z-10" ref="dom">
     <div class="h-[50px] flex justify-between items-center text-primary p-2 shadow-sm">
       <el-breadcrumb class="ml-[20px]" separator="/">
         <el-breadcrumb-item v-for="i18nKey in breadcrumbLs" :key="i18nKey">{{ $i18n(i18nKey) }}</el-breadcrumb-item>

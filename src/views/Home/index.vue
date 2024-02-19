@@ -5,10 +5,11 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, defineAsyncComponent } from 'vue'
+import { onMounted, onUnmounted, ref, defineAsyncComponent } from 'vue'
 import ProviderSetting from '@views/Home/stores/ProvideSetting.vue'
 import Progress from '@core/progress'
 import HistoryTab from './components/HistoryTab/index.vue'
+import { emitter } from '@core/mitt'
 
 import useNav from '@/hooks/useNav'
 
@@ -18,6 +19,7 @@ const { route } = useNav()
 
 const excuteRouteCache = ref<Array<string>>([])
 const includeRouteCache = ref<Array<string>>([])
+const domHeight = ref<number>(0)
 
 const routerCahchHandler = (ls: any) => {
   console.log('routerCahchHandler', ls)
@@ -39,11 +41,16 @@ onMounted(() => {
   // setTimeout(() => {
   //   Progress.done()
   // }, 10000)
+  emitter.on('navHeight', (h) => (domHeight.value = h))
+})
+
+onUnmounted(() => {
+  emitter.off('navHeight')
 })
 </script>
 
 <template>
-  <main class="text-primary p-2">
+  <main class="text-primary p-2" :style="{ height: `calc( 100vh - ${domHeight}px )`, overflowY: 'auto' }">
     <portal to="historyTabDom">
       <HistoryTab @remove-cache="removeRouterCacheHandler" @router-cache="routerCahchHandler" />
     </portal>

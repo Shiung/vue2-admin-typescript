@@ -7,14 +7,19 @@ import { emitter } from '@core/mitt'
 
 import UserCard from './components/UserCard.vue'
 
+type State = {
+  breadcrumbLs: Array<string>
+  elHeight: number
+  resizeObserverState: ResizeObserver | undefined
+}
+
 export default defineComponent({
   name: 'navHeaderComp',
-  data() {
+  data(): State {
     return {
-      vm: this,
       breadcrumbLs: [],
       elHeight: 0,
-      resizeObserverState: new ResizeObserver(() => console.log('init'))
+      resizeObserverState: undefined
     }
   },
   components: {
@@ -50,7 +55,7 @@ export default defineComponent({
     this.resizeObserverState.observe(this.$refs.dom as HTMLElement)
   },
   destroyed() {
-    this.resizeObserverState.disconnect()
+    this.resizeObserverState?.disconnect()
   }
 })
 </script>

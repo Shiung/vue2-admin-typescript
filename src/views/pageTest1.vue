@@ -9,7 +9,7 @@ import { onMounted, onUnmounted, onActivated, onDeactivated, inject, watch } fro
 import { SettingStateSymbol, SettingUpdateSymbol } from '@views/Home/stores/ProvideSetting.vue'
 import slotTest from '@/components/slotTest.vue'
 
-const setting = inject(SettingStateSymbol, { language: '', theme: '' }) // ?? { language: '', theme: '' }
+const setting = inject(SettingStateSymbol) // ?? { language: '', theme: '' }
 const settingHandler = inject(SettingUpdateSymbol, () => console.log('wrong')) // ?? (() => console.log('wrong'))
 
 watch(
@@ -47,8 +47,8 @@ onDeactivated(() => {
   <div class="h-[1500px]" ref="dom">
     <div class="bg-[#ccc] sticky top-0">header</div>
     page1test
-    <div>language: {{ setting.language }}</div>
-    <div>theme: {{ setting.theme }}</div>
+    <div>language: {{ setting?.language }}</div>
+    <div>theme: {{ setting?.theme }}</div>
     <el-button type="success" round @click.native="settingHandler('language', 'ko_kr')">按我1</el-button>
 
     <el-button type="info" round @click.native="handeler('id_ID')">按我2</el-button>

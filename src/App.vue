@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { emitter } from '@core/mitt'
 import API from '@/api'
 
+import ProviderSetting from '@views/Home/stores/ProvideSetting.vue'
 import GlobalLoading from '@/components/GlobalLoading.vue'
 
 import useTheme from '@/hooks/useTheme'
@@ -46,7 +47,9 @@ onUnmounted(() => {
         <keep-alive include="navHeaderComp">
           <router-view name="navHeader" />
         </keep-alive>
-        <router-view />
+        <ProviderSetting>
+          <router-view />
+        </ProviderSetting>
       </div>
     </template>
 

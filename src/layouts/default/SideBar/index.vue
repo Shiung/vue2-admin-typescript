@@ -35,14 +35,13 @@ export default defineComponent({
       console.log(key, keyPath)
     },
     handleChange(key: string, keyPath: string) {
-      console.log('handleChange key', key)
-      console.log('handleChange keyPath', keyPath)
-      const { path } = this.$route
-      if (path === key) {
-        console.log('same ***')
+      const { name } = this.$route
+      if (name === key) {
+        console.log('same ***', keyPath)
         return
       }
-      this.$router.push(key)
+      // this.$router.push(key)
+      this.$router.push({ name: key })
     }
   },
   mounted() {
@@ -51,7 +50,7 @@ export default defineComponent({
   watch: {
     $route: {
       handler(cur) {
-        this.menuActive = cur.path
+        this.menuActive = cur.name
       },
       immediate: true
     }

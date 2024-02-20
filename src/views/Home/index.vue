@@ -5,17 +5,14 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, defineAsyncComponent } from 'vue'
-import ProviderSetting from '@views/Home/stores/ProvideSetting.vue'
-import Progress from '@core/progress'
+import { onMounted, onUnmounted, ref, defineAsyncComponent, inject } from 'vue'
+import { SettingUpdateSymbol } from '@views/Home/stores/ProvideSetting.vue'
 import HistoryTab from './components/HistoryTab/index.vue'
 import { emitter } from '@core/mitt'
 
-import useNav from '@/hooks/useNav'
-
 const PermissionsDeniedPage = defineAsyncComponent(() => import('@views/PermissionsView.vue'))
 
-const { route } = useNav()
+const providerSettingHandler = inject(SettingUpdateSymbol)
 
 const excuteRouteCache = ref<Array<string>>([])
 const includeRouteCache = ref<Array<string>>([])
@@ -36,12 +33,10 @@ const removeRouterCacheHandler = (n: string) => {
 }
 
 onMounted(() => {
-  // Progress.start()
-  // console.log('home mounted ***')
-  // setTimeout(() => {
-  //   Progress.done()
-  // }, 10000)
-  emitter.on('navHeight', (h) => (domHeight.value = h))
+  emitter.on('navHeight', (h) => {
+    domHeight.value = h
+    typeof providerSettingHandler === 'function' && providerSettingHandler('navHeight', h)
+  })
 })
 
 onUnmounted(() => {
@@ -54,13 +49,11 @@ onUnmounted(() => {
     <portal to="historyTabDom">
       <HistoryTab @remove-cache="removeRouterCacheHandler" @router-cache="routerCahchHandler" />
     </portal>
-    <ProviderSetting>
-      <Transition name="page-cache" mode="out-in" appear>
-        <keep-alive :include="includeRouteCache">
-          <router-view v-if="!$route.meta?.lock" />
-        </keep-alive>
-      </Transition>
-      <PermissionsDeniedPage v-if="$route.meta?.lock" />
-    </ProviderSetting>
+    <Transition name="page-cache" mode="out-in" appear>
+      <keep-alive :include="includeRouteCache">
+        <router-view v-if="!$route.meta?.lock" />
+      </keep-alive>
+    </Transition>
+    <PermissionsDeniedPage v-if="$route.meta?.lock" />
   </main>
 </template>

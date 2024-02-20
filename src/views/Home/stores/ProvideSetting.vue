@@ -1,10 +1,13 @@
 <script lang="ts">
 import { provide, reactive, readonly } from 'vue'
 import type { InjectionKey } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useThemeStoreHook } from '@/stores/theme'
 
 type State = {
   language: 'zh_cn' | 'en_us' | 'ja_jp' | 'ko_kr'
   theme: 'dark' | 'light'
+  navHeight: number
 }
 
 type UpdateHandler = <T extends keyof State>(property: T, value: State[T]) => void
@@ -14,9 +17,11 @@ export const SettingUpdateSymbol: InjectionKey<UpdateHandler> = Symbol('setting 
 
 export default {
   setup() {
+    const { theme: storeTheme } = storeToRefs(useThemeStoreHook())
     const state = reactive<State>({
       language: 'en_us',
-      theme: 'light'
+      theme: 'light',
+      navHeight: 0
     })
 
     provide(SettingStateSymbol, readonly(state))
@@ -27,7 +32,15 @@ export default {
 
     provide(SettingUpdateSymbol, update)
 
-    return { state }
+    return { state, storeTheme, providerUpdate: update }
+  },
+  watch: {
+    storeTheme: {
+      handler(t) {
+        this.providerUpdate('theme', t)
+      },
+      immediate: true
+    }
   }
 }
 </script>

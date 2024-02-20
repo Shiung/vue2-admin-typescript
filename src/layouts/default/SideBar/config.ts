@@ -3,7 +3,7 @@ type MenuUnit = {
   iconCss: string
   iconEL?: any
   disabled?: boolean
-  index: string
+  index: string // router name
   children?: Array<Omit<MenuUnit, 'iconCss'>>
 }
 
@@ -18,11 +18,11 @@ const menuConf: MenuList = [
     children: [
       {
         titleI18n: 'nav-order-listTitle',
-        index: '/test4'
+        index: 'test4'
       },
       {
         titleI18n: 'nav-order-editResultTitle',
-        index: '/test5'
+        index: 'test5'
       }
     ]
   },
@@ -31,20 +31,20 @@ const menuConf: MenuList = [
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/gameManage.svg'),
     index: '/test2/123',
-    disabled: false
+    disabled: true
   },
   {
     titleI18n: 'nav-user-manageTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/memberManage.svg'),
-    index: '/login',
+    index: 'login',
     disabled: false
   },
   {
     titleI18n: 'nav-report-listTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/report.svg'),
-    index: '/test2',
+    index: 'test2',
     disabled: false
   },
   {
@@ -55,7 +55,7 @@ const menuConf: MenuList = [
     children: [
       {
         titleI18n: 'nav-account-permissionManageTitle',
-        index: '/'
+        index: 'home'
       },
       {
         titleI18n: 'nav-account-manageTitle',

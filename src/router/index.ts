@@ -6,6 +6,15 @@ import type { ToRouterType } from './types'
 
 Vue.use(VueRouter)
 
+declare module 'vue-router' {
+  interface RouteMeta {
+    requiresAuth?: boolean
+    titleI18n?: string
+    lock?: boolean
+    caches?: boolean
+  }
+}
+
 const router = new VueRouter({
   mode: 'history',
   base: import.meta.env.BASE_URL,
@@ -31,13 +40,13 @@ const router = new VueRouter({
         {
           path: '/',
           name: 'home',
-          meta: { requiresAuth: true, titleI18n: 'test1Title' },
+          meta: { requiresAuth: true, titleI18n: 'test1Title', caches: true },
           component: () => import('@views/pageTest1.vue')
         },
         {
           path: 'test2',
           name: 'test2',
-          meta: { requiresAuth: true, titleI18n: 'test2Title' },
+          meta: { requiresAuth: true, titleI18n: 'test2Title', caches: true },
           component: () => import('@views/TestHome.vue')
         },
         {
@@ -61,7 +70,8 @@ const router = new VueRouter({
         {
           path: 'test5/chid/:id',
           name: 'test5In',
-          component: () => import('@views/Test5/PageTest.vue')
+          component: () => import('@views/Test5/PageTest.vue'),
+          meta: { requiresAuth: true, titleI18n: 'test5Inside', caches: true }
         }
       ]
     },

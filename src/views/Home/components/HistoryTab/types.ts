@@ -1,8 +1,9 @@
 type TableTab = {
   title: string
   name: string
-  content: string
+  content?: string
   params?: { [key in string]: string }
+  cacheCompName?: string
 }
 
 interface State {

@@ -7,7 +7,6 @@ export default {
 <script lang="ts" setup>
 import { watch, reactive, computed, onUnmounted } from 'vue'
 import type { State } from './types'
-import { tabConf } from './config'
 import useNav from '@/hooks/useNav'
 
 const { route, router } = useNav()
@@ -25,12 +24,17 @@ const states = reactive<State>({
 
 const isTabCloseAble = computed(() => states.editableTabs.length > 1)
 
+const calculTitleParamsHandler = (p: object) => {
+  return `: ${Object.values(p).join('/')}`
+}
+
 const tabClickHandler = (cur: any) => {
   const routerPushName = states.editableTabsValue
   const routerPushParams = states.editableTabs
   console.log('tabClickHandler', route.name, routerPushName, routerPushParams, cur)
   if (route.name === routerPushName) return
-  router.push({ name: routerPushName })
+  const match = routerPushParams.find(({ name }) => name === routerPushName)
+  router.push({ name: routerPushName, ...(match?.params && { params: match.params }) })
 }
 
 const tabRemoveHandler = (name: string) => {
@@ -49,10 +53,10 @@ const tabRemoveHandler = (name: string) => {
 watch(
   () => states.editableTabs,
   (tab) => {
-    console.log('router name abc *** tab:', tab)
+    const cacheLs = tab.filter(({ cacheCompName }) => !!cacheCompName)
     emit(
       'router-cache',
-      tab.map(({ name }) => `${name}View`)
+      cacheLs.map((l) => l?.cacheCompName ?? 'none')
     )
   },
   { immediate: true, deep: true }
@@ -62,17 +66,19 @@ watch(
   () => route.path,
   (cur) => {
     const routerName = route.name as string
+    const routerParams = route.params ?? {}
+    const { titleI18n: routerTitleI18n = 'none', caches: routerCache } = route.meta ?? {}
     const exist = states.editableTabs.find(({ name }) => name === routerName)
     if (exist) {
       states.editableTabsValue = exist.name
     } else {
-      const match = tabConf?.[routerName]
-      if (!match) return
+      const cur = route.matched[route.matched.length - 1]
+      const { name, __name } = cur.components.default as { name: string; __name: string }
       states.editableTabs.push({
         name: routerName,
-        title: match.title,
-        content: `content ${match.content}`,
-        ...(match.params && { params: match.params })
+        title: routerTitleI18n,
+        ...(Object.keys(routerParams).length > 0 && { params: routerParams }),
+        ...(routerCache && { cacheCompName: name ?? __name })
       })
       states.editableTabsValue = routerName
     }
@@ -94,7 +100,9 @@ onUnmounted(() => {
       @tab-click="tabClickHandler"
       @tab-remove="tabRemoveHandler"
     >
-      <el-tab-pane v-for="item in states.editableTabs" :key="item.name" :label="item.title" :name="item.name" lazy></el-tab-pane>
+      <el-tab-pane v-for="item in states.editableTabs" :key="item.name" :label="item.title" :name="item.name" lazy>
+        <span slot="label">{{ $i18n(item.title) }}{{ item.params && calculTitleParamsHandler(item.params) }}</span>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>

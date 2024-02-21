@@ -10,7 +10,7 @@ import { SettingUpdateSymbol } from '@views/Home/stores/ProvideSetting.vue'
 import HistoryTab from './components/HistoryTab/index.vue'
 import { emitter } from '@core/mitt'
 
-const PermissionsDeniedPage = defineAsyncComponent(() => import('@views/PermissionsView.vue'))
+const PermissionsDeniedPage = defineAsyncComponent(() => import('@views/PermissionsDeniedView.vue'))
 
 const providerSettingHandler = inject(SettingUpdateSymbol)
 
@@ -45,7 +45,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <main class="text-primary p-2" :style="{ height: `calc( 100vh - ${domHeight}px )`, overflowY: 'auto' }">
+  <main class="p-2" :style="{ height: `calc( 100vh - ${domHeight}px )`, overflowY: 'auto' }">
     <portal to="historyTabDom">
       <HistoryTab @remove-cache="removeRouterCacheHandler" @router-cache="routerCahchHandler" />
     </portal>

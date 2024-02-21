@@ -16,6 +16,9 @@ export const SettingStateSymbol: InjectionKey<Readonly<State>> = Symbol('setting
 export const SettingUpdateSymbol: InjectionKey<UpdateHandler> = Symbol('setting update')
 
 export default {
+  props: {
+    css: String
+  },
   setup() {
     const { theme: storeTheme } = storeToRefs(useThemeStoreHook())
     const state = reactive<State>({
@@ -45,7 +48,7 @@ export default {
 }
 </script>
 <template>
-  <div id="context-setting" class="h-full" :data-lang="state.language" :data-theme="state.theme">
+  <div id="context-setting" :class="$props.css" :data-lang="state.language" :data-theme="state.theme">
     <slot></slot>
   </div>
 </template>

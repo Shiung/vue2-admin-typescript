@@ -38,22 +38,22 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div id="app" class="flex min-h-screen">
-    <template v-if="isInit">
-      <keep-alive include="sideBarComp">
-        <router-view name="sideBar" />
-      </keep-alive>
-      <div class="flex-1 overflow-x-auto h-screen bg-gray-100">
-        <keep-alive include="navHeaderComp">
-          <router-view name="navHeader" />
+  <div id="app" class="min-h-screen">
+    <ProviderSetting css="flex">
+      <template v-if="isInit">
+        <keep-alive include="sideBarComp">
+          <router-view name="sideBar" />
         </keep-alive>
-        <ProviderSetting>
+        <div class="flex-1 overflow-x-auto h-screen bg-gray-100">
+          <keep-alive include="navHeaderComp">
+            <router-view name="navHeader" />
+          </keep-alive>
           <router-view />
-        </ProviderSetting>
-      </div>
-    </template>
+        </div>
+      </template>
 
-    <GlobalLoading v-else :width="80" :height="80" loader="dots" :color="'var(--luTheme-primary)'" />
+      <GlobalLoading v-else :width="80" :height="80" loader="dots" :color="'var(--luTheme-primary)'" />
+    </ProviderSetting>
     <div
       v-if="isInit && isLoading"
       class="block w-screen h-screen fixed top-0 left-0 z-[1030] bg-[rgba(0,0,0,.3)] backdrop-blur-sm"

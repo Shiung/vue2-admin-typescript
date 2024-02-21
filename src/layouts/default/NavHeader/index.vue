@@ -7,8 +7,10 @@ import { emitter } from '@core/mitt'
 
 import UserCard from './components/UserCard.vue'
 
+type breadcrumb = { i18nKey: string; params?: string }
+
 type State = {
-  breadcrumbLs: Array<string>
+  breadcrumbLs: Array<breadcrumb>
   elHeight: number
   resizeObserverState: ResizeObserver | undefined
 }
@@ -37,10 +39,17 @@ export default defineComponent({
   watch: {
     $route: {
       handler(r: Route) {
+        const routeParams = Object.values(r?.params ?? {}).join('/')
+        const curName = r.name
         this.breadcrumbLs = r.matched.reduce((sum, cur) => {
           const { meta } = cur
-          return meta.titleI18n ? sum.concat(meta.titleI18n) : sum
-        }, [] as Array<string>)
+          return meta.titleI18n
+            ? sum.concat({
+                i18nKey: meta.titleI18n,
+                ...(curName === cur.name && !!routeParams && { params: `: ${routeParams}` })
+              })
+            : sum
+        }, [] as Array<breadcrumb>)
       },
       immediate: true
     },
@@ -64,7 +73,9 @@ export default defineComponent({
   <div class="bg-white sticky top-0 z-10" ref="dom">
     <div class="h-[50px] flex justify-between items-center text-primary p-2 shadow-sm">
       <el-breadcrumb class="ml-[20px]" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item v-for="i18nKey in breadcrumbLs" :key="i18nKey">{{ $i18n(i18nKey) }}</el-breadcrumb-item>
+        <el-breadcrumb-item v-for="{ i18nKey, params } in breadcrumbLs" :key="i18nKey">
+          {{ $i18n(i18nKey) }} {{ params }}
+        </el-breadcrumb-item>
       </el-breadcrumb>
       <!-- <div class="cursor-pointer text-[20px]" @click="collapseHandler">
         <i :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"></i>

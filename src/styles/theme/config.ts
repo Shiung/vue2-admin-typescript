@@ -14,6 +14,11 @@ export const themesMap = {
       textColor: 'rgba(0, 0, 0, .7)',
       activeTextColor: '#007AfF',
       bgHover: '#ecf5ff'
+    },
+    table: {
+      header: {
+        bg: '#f8fafd'
+      }
     }
   },
   [ThemeConf.dark]: {
@@ -26,6 +31,11 @@ export const themesMap = {
       textColor: 'rgba(0, 0, 0, .7)',
       activeTextColor: '#d6b887',
       bgHover: '#ecf5ff'
+    },
+    table: {
+      header: {
+        bg: '#f8fafd'
+      }
     }
   }
 }

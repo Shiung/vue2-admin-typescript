@@ -37,15 +37,15 @@ const menuConf: MenuList = [
     titleI18n: 'nav-user-manageTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/memberManage.svg'),
-    index: 'login',
+    index: 'test2',
     disabled: false
   },
   {
     titleI18n: 'nav-report-listTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/report.svg'),
-    index: 'test2',
-    disabled: false
+    index: 'login',
+    disabled: true
   },
   {
     titleI18n: 'nav-account-permissionTitle',
@@ -55,12 +55,12 @@ const menuConf: MenuList = [
     children: [
       {
         titleI18n: 'nav-account-permissionManageTitle',
-        index: 'home'
+        index: 'account-permission'
       },
       {
         titleI18n: 'nav-account-manageTitle',
-        index: '/123',
-        disabled: true
+        index: 'home',
+        disabled: false
       }
     ],
     disabled: false

@@ -58,7 +58,7 @@ const router = new VueRouter({
         {
           path: 'test4',
           name: 'test4',
-          meta: { requiresAuth: true, titleI18n: 'test4Title' },
+          meta: { requiresAuth: true, titleI18n: 'nav-order-listTitle' },
           component: () => import('@views/Test2Home.vue')
         },
         {
@@ -71,7 +71,15 @@ const router = new VueRouter({
           path: 'test5/chid/:id',
           name: 'test5In',
           component: () => import('@views/Test5/PageTest.vue'),
-          meta: { requiresAuth: true, titleI18n: 'test5Inside', caches: true }
+          meta: { requiresAuth: true, titleI18n: 'nav-order-editResultTitle', caches: true }
+        },
+
+        // account
+        {
+          path: 'auth/permission',
+          name: 'account-permission',
+          component: () => import('@views/Permission/index.vue'),
+          meta: { requiresAuth: true, titleI18n: 'nav-account-permissionManageTitle', caches: true }
         }
       ]
     },

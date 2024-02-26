@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, withDefaults } from 'vue'
+import { ref } from 'vue'
 
 type Props = {
   cusCss?: string

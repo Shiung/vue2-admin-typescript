@@ -13,6 +13,9 @@ import packageJson from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    'process.env.app_version': JSON.stringify(packageJson.version)
+  },
   plugins: [
     vue2(),
     vue2Jsx(),

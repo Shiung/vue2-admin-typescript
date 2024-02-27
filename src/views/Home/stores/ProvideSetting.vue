@@ -1,12 +1,13 @@
 <script lang="ts">
-import { provide, reactive, readonly } from 'vue'
+import { provide, reactive, readonly, watch } from 'vue'
 import type { InjectionKey } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useThemeStoreHook } from '@/stores/theme'
+import { ThemeConf } from '@/styles/theme/config'
 
 type State = {
   language: 'zh_cn' | 'en_us' | 'ja_jp' | 'ko_kr'
-  theme: 'dark' | 'light'
+  theme: ThemeConf
   navHeight: number
 }
 
@@ -22,8 +23,8 @@ export default {
   setup() {
     const { theme: storeTheme } = storeToRefs(useThemeStoreHook())
     const state = reactive<State>({
-      language: 'en_us',
-      theme: 'light',
+      language: 'zh_cn',
+      theme: ThemeConf.light,
       navHeight: 0
     })
 
@@ -33,17 +34,15 @@ export default {
       state[property] = value
     }
 
+    watch(
+      () => storeTheme.value,
+      (t) => update('theme', t),
+      { immediate: true }
+    )
+
     provide(SettingUpdateSymbol, update)
 
     return { state, storeTheme, providerUpdate: update }
-  },
-  watch: {
-    storeTheme: {
-      handler(t) {
-        this.providerUpdate('theme', t)
-      },
-      immediate: true
-    }
   }
 }
 </script>

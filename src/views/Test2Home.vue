@@ -54,7 +54,7 @@ export default defineComponent({
     <div>theme: {{ setting?.theme }}</div>
     <div>language: {{ setting?.language }}</div>
     <el-button @click.native="settingUpdate && settingUpdate('language', 'ko_kr')">更新language</el-button>
-    <el-button @click.native="settingUpdate && settingUpdate('theme', 'light')">更新theme</el-button>
+    <!-- <el-button @click.native="settingUpdate && settingUpdate('theme', 'light')">更新theme</el-button> -->
     <div>{{ storeToken }}</div>
     <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
       <el-radio-button :label="false">展开</el-radio-button>

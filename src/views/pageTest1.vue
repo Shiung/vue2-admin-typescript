@@ -53,7 +53,7 @@ onDeactivated(() => {
 
     <el-button type="info" round @click.native="handeler('id_ID')">按我2</el-button>
 
-    <el-button type="warning" round @click.native="settingHandler('theme', 'light')">按我3</el-button>
+    <!-- <el-button type="warning" round @click.native="settingHandler('theme', 'light')">按我3</el-button> -->
 
     <el-button type="danger" round @click.native="settingHandler('language', 'zh_cn')">按我4</el-button>
 

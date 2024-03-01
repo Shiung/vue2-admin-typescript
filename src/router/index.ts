@@ -1,10 +1,12 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Progress from '@core/progress'
 
 import type { ToRouterType } from './types'
 
-Vue.use(VueRouter)
+import { useUserStoreHook } from '@/stores/user'
+
+// Vue.use(VueRouter)
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -96,21 +98,37 @@ setTimeout(() => {
 }, 10000)
 
 router.beforeEach(async (to: ToRouterType, from, next) => {
-  const { meta } = to
-  console.log('to router before', { ...meta })
+  const { meta, name } = to
+  const { token, info } = useUserStoreHook()
+
+  console.log('to router before', { ...meta }, token)
+  // console.log('to router before', { ...meta }, store)
   Progress.start()
-  if (meta?.requiresAuth) {
-    // check Auth token
-    // next({ name: 'login', replace: true })
-    if (isLock) {
-      meta.lock = isLock
+  if (name === 'login') {
+    if (token) {
+      next({ name: 'home', replace: true })
     } else {
-      delete meta.lock
+      next()
     }
-    console.log('需要驗證')
+  } else {
+    if (meta?.requiresAuth) {
+      // check Auth token
+      if (isLock) {
+        meta.lock = isLock
+      } else {
+        delete meta.lock
+      }
+
+      if (!token) {
+        next({ name: 'login', replace: true })
+      } else {
+        next()
+      }
+    } else {
+      next()
+    }
   }
-  console.log('to router', to)
-  next()
+  // next()
   Progress.done()
 })
 

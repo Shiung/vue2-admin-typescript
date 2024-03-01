@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onUnmounted, reactive, ref, getCurrentInstance } from 'vue'
+import { reactive, ref, getCurrentInstance } from 'vue'
 import { Message } from 'element-ui'
 import Img_login from '@/assets/img/login.png'
 import Svg_Logo from '@/assets/svg/logo.svg'
@@ -7,10 +7,15 @@ import Backstage from '@/assets/svg/backstage.svg'
 
 import useNav from '@/hooks/useNav'
 
-let timeoutRef: ReturnType<typeof setTimeout>
+import config from '@/config'
+import API from '@/api'
+import Progress from '@/core/progress'
+
+import { useUserStoreHook } from '@/stores/user'
 
 const { router } = useNav()
 const vueInstance = getCurrentInstance()
+const { SET_LOGIN } = useUserStoreHook()
 
 const formRef = ref()
 const inputVal = reactive({
@@ -22,12 +27,38 @@ const inputRules = reactive({
   password: [{ required: true, message: vueInstance?.proxy.$i18n('login-passwordError'), trigger: ['blur', 'change'] }]
 })
 
-const sendHadner = () => {
+const fetchAction = async () => {
+  Progress.start()
+  try {
+    const res = await API.LoginPost({
+      operatorName: inputVal.name,
+      password: inputVal.password,
+      platformId: config.platform
+    })
+    if (res.code === 0) {
+      SET_LOGIN({
+        token: res.data.token,
+        operator: res.data.operatorId,
+        info: res.data
+      })
+      router.replace({ name: 'home' })
+    }
+  } catch (e) {
+    const { response } = e as { response: { data: { code: string; message: string } } }
+    Message({
+      type: 'error',
+      message: response?.data?.code ?? 'error',
+      duration: 5000
+    })
+  }
+  Progress.done()
+}
+
+const sendHadner = async () => {
   formRef.value.validate((v: any) => {
     console.log('v ===>', v)
     if (v) {
-      console.log('成功')
-      router.push({ name: 'home' })
+      fetchAction()
     } else {
       Message({
         type: 'error',
@@ -38,10 +69,6 @@ const sendHadner = () => {
     }
   })
 }
-
-onUnmounted(() => {
-  clearTimeout(timeoutRef)
-})
 </script>
 
 <template>
@@ -54,7 +81,6 @@ onUnmounted(() => {
         <div class="flex items-center mb-5">
           <Svg_Logo class="mr-3" />
           <Backstage class="mt-2" />
-          <router-link :to="{ name: 'home' }" class="text-primary ml-5">回去</router-link>
         </div>
         <el-form :model="inputVal" label-width="120px" label-position="top" :rules="inputRules" ref="formRef">
           <el-form-item class="emptyRequireMark" :label="$i18n('login-account')" prop="name">

@@ -35,7 +35,7 @@ export default class Base {
   private httpInterceptorsResponse(): void {
     Base.axiosInstance.interceptors.response.use(
       (response: AxiosResponse) => {
-        console.log('response', response)
+        console.log('api response ==>', response)
         return response.data
       },
       (error) => {

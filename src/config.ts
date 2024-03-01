@@ -14,8 +14,6 @@ const platformMap: { [key in string]: string } = {
 
 const appENV = import.meta.env.VITE_APP_ENV || 'dev'
 
-console.log('process env', import.meta.env, process.env.app_version)
-
 const config = {
   apiUrl: url[appENV] ?? url.dev,
   env: appENV,

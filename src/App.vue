@@ -1,20 +1,16 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { emitter } from '@core/mitt'
-import API from '@/api'
 
 import ProviderSetting from '@views/Home/stores/ProvideSetting.vue'
 import GlobalLoading from '@/components/GlobalLoading.vue'
 
+import useInit from '@/hooks/useInit'
 import useTheme from '@/hooks/useTheme'
 
-const isInit = ref<boolean>(false)
 const isLoading = ref<boolean>(false)
 
-const fetchData = async () => {
-  const res = await API.TestFetch()
-  console.log('res', res)
-}
+const { isInit } = useInit()
 
 useTheme()
 watch(
@@ -25,10 +21,8 @@ watch(
   }
 )
 onMounted(() => {
-  fetchData()
   emitter.on('call', (v) => console.log('v', v))
   emitter.on('Nprogress', (n) => (isLoading.value = n))
-  setTimeout(() => (isInit.value = true), 2000)
 })
 
 onUnmounted(() => {

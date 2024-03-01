@@ -16,6 +16,8 @@ const flattenMethod = (o: object) => {
 // xx-xxx-xxx as key bind
 let i18nMap = flattenMethod(zhCN) as { [key in string]: string }
 
+window.$i18nMap = i18nMap
+
 export default {
   install(Vue: VueConstructor) {
     Vue.prototype.$i18n = (key: string, replace?: { [key in string]: string }) => {

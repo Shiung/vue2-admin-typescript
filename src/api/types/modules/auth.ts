@@ -27,9 +27,9 @@ interface UserRoleGroupGet {
   >
 }
 
-interface UserRoleGroupPermissionGroup {
-  req: { id: string }
+interface UserRoleGroupPermissionGroupGet {
+  req: undefined
   res: withData<Array<{ id: number }>>
 }
 
-export type { LoginPost, UserRoleGroupGet, UserRoleGroupPermissionGroup }
+export type { LoginPost, UserRoleGroupGet, UserRoleGroupPermissionGroupGet }

@@ -44,7 +44,7 @@ class API extends Base {
   // auth
   LoginPost = this.action_post<Type.AuthActionType.LoginPost>(apiPathMap.login[prefixPath])
   PermissionManageGet = this.action_get<Type.AuthActionType.UserRoleGroupGet>(apiPathMap.userRoleGroup[prefixPath])
-  PermissionManageRoleGroupGet = this.action_get_withPathParams<Type.AuthActionType.UserRoleGroupPermissionGroup>(
+  PermissionManageRoleGroupGet = this.action_get_withPathParams<Type.AuthActionType.UserRoleGroupPermissionGroupGet>(
     apiPathMap.userRoleGroupPermission[prefixPath]
   )
 

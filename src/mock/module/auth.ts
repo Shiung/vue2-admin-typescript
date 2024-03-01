@@ -110,7 +110,7 @@ export default () => {
     {
       url: apiPathMap.userRoleGroupPermission.mockPath,
       method: 'get',
-      response: (): AuthActionType.UserRoleGroupPermissionGroup['res'] => {
+      response: (): AuthActionType.UserRoleGroupPermissionGroupGet['res'] => {
         const fakeData = mock({
           'array|1-10': [{ id: Random.natural(1, 100) }]
         })

@@ -18,7 +18,7 @@ const menuConf: MenuList = [
     children: [
       {
         titleI18n: 'nav-order-listTitle',
-        index: 'test4'
+        index: 'betOrders'
       },
       {
         titleI18n: 'nav-order-editResultTitle',

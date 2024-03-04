@@ -74,6 +74,7 @@ watch(
     } else {
       const cur = route.matched[route.matched.length - 1]
       const { name, __name } = cur.components.default as { name: string; __name: string }
+      console.log('cur.components.default', cur.components.default)
       states.editableTabs.push({
         name: routerName,
         title: routerTitleI18n,

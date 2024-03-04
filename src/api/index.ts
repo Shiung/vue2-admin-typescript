@@ -48,6 +48,9 @@ class API extends Base {
     apiPathMap.userRoleGroupPermission[prefixPath]
   )
 
+  // orders
+  OrdersListGet = this.action_get<Type.OrdersActionType.OrdersGet>(apiPathMap.ordersGet[prefixPath])
+
   // test
   TestFetch = this.action_get<Type.TestActionType.TestFetch>('/products/1')
   TestPost = this.action_post<Type.TestActionType.TestPost>('/products/add')

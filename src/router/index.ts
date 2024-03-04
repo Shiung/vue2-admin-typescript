@@ -82,6 +82,14 @@ const router = new VueRouter({
           name: 'account-permission',
           component: () => import('@views/Permission/index.vue'),
           meta: { requiresAuth: true, titleI18n: 'nav-account-permissionManageTitle', caches: true }
+        },
+
+        // bet orders
+        {
+          path: 'betOrders',
+          name: 'betOrders',
+          component: () => import('@views/BetOrder/index.vue'),
+          meta: { requiresAuth: true, titleI18n: 'nav-order-listTitle', caches: true }
         }
       ]
     },

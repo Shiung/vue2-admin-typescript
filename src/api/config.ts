@@ -16,6 +16,12 @@ const apiPathMap = {
   userRoleGroupPermission: {
     path: '/permission-management/role-group/:id/permission',
     mockPath: '/permission-management/permission'
+  },
+
+  // orders
+  ordersGet: {
+    path: '/orders/page',
+    mockPath: '/orders/page'
   }
 }
 

@@ -86,4 +86,4 @@ interface OrdersGet {
   }>
 }
 
-export type { OrdersGet, OrderUnit }
+export type { OrdersGet }

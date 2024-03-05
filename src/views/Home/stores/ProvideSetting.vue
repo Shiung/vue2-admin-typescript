@@ -6,7 +6,7 @@ import { useThemeStoreHook } from '@/stores/theme'
 import { ThemeConf } from '@/styles/theme/config'
 
 type State = {
-  language: 'zh_cn' | 'en_us' | 'ja_jp' | 'ko_kr'
+  language: 'zh-cn' | 'en-us' | 'ja-jp' | 'ko-kr'
   theme: ThemeConf
   navHeight: number
 }
@@ -23,7 +23,7 @@ export default {
   setup() {
     const { theme: storeTheme } = storeToRefs(useThemeStoreHook())
     const state = reactive<State>({
-      language: 'zh_cn',
+      language: 'zh-cn',
       theme: ThemeConf.light,
       navHeight: 0
     })

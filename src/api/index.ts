@@ -19,9 +19,12 @@ class API extends Base {
   private configBind(c?: Type.AxiosConfigBind) {
     const token = useUserStoreHook().token
     return {
+      // baseURL: mock ? '/' : config.apiUrl,
+      // ...(!!token && { headers: { Authorization: token } }),
+      // ...c
       baseURL: mock ? '/' : config.apiUrl,
-      ...(!!token && { headers: { Authorization: token } }),
-      ...c
+      ...c,
+      ...(!!token && { headers: { Authorization: token, ...(c && 'headers' in c && c.headers) } })
     }
   }
 

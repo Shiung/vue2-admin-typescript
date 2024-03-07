@@ -5,73 +5,98 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { reactive, onMounted, inject } from 'vue'
-import { SettingStateSymbol } from '@views/Home/stores/ProvideSetting.vue'
-import API from '@/api'
+import { ref, onMounted } from 'vue'
 import Progress from '@/core/progress'
 
 import dayjs from 'dayjs'
 
+import SelectOption from './components/SelectOption.vue'
 import { SID } from '@/constants'
-import { } from './constants'
+import { defaultOrderPageReqParams, paginationHeight } from './constants'
 import { parseAH_k } from './utils'
 
-type State = {
-  dataLs: Awaited<ReturnType<typeof API.OrdersListGet>>['data']['orders']
-  paging?: Awaited<ReturnType<typeof API.OrdersListGet>>['data']['page']
-  pageHeight: number
-}
+import { useFetchOrderPage } from './hooks'
 
-const states = reactive<State>({
-  dataLs: [],
-  paging: undefined,
-  pageHeight: 50
-})
+const tableboxDom = ref()
+const selectOpthionRef = ref<InstanceType<typeof SelectOption>>()
 
-const provider_setting = inject(SettingStateSymbol)
+const { states, actions } = useFetchOrderPage()
 
 const fetchHandler = async () => {
   Progress.start()
-  const res = await API.OrdersListGet(
-    {
-      startDate: '123',
-      endDate: '321',
-      platformId: '111',
-      pageSize: 30
-    },
-    {
-      headers: { timeZone: 'UTC+8', language: provider_setting?.language ?? 'zh-cn' }
-    }
-  )
-  states.dataLs = res.data.orders
-  states.paging = res.data.page
-  console.log('res', res)
+  await actions.fetchHandler()
+  tableboxDom.value?.$refs?.bodyWrapper?.scrollTo(0, 0)
   Progress.done()
 }
 
-const pageChange = (p: any) => {
-  console.log('current', p)
+const pageChange = (p: number) => {
+  actions.setActionQuery('paging', { page: p - 1 })
+  fetchHandler()
+}
+
+const searchHandler = () => {
+  actions.setActionQuery('search', {
+    startDate: selectOpthionRef.value?.dateSelect.startDate.toString() ?? '',
+    endDate: selectOpthionRef.value?.dateSelect.endDate.toString() ?? '',
+    sid: selectOpthionRef.value?.sidPicker ?? SID.football,
+    ...(selectOpthionRef.value?.tidPicker && {
+      tid: selectOpthionRef.value?.tidPicker
+    }),
+    ...(selectOpthionRef.value?.gidPicker && {
+      gid: selectOpthionRef.value?.gidPicker
+    }),
+    ...(selectOpthionRef.value?.currencyPicker && {
+      currencyType: selectOpthionRef.value?.currencyPicker
+    }),
+    ...(selectOpthionRef.value?.orderTypePicker && {
+      orderType: selectOpthionRef.value?.orderTypePicker
+    }),
+    ...(selectOpthionRef.value?.userNameInput && {
+      userName: selectOpthionRef.value?.userNameInput
+    }),
+    ...(selectOpthionRef.value?.orderIdInput && {
+      orderId: selectOpthionRef.value?.orderIdInput
+    })
+  })
+  fetchHandler()
+}
+
+const cancelHandler = () => {
+  const { resetHandler } = selectOpthionRef.value as any
+  typeof resetHandler === 'function' && resetHandler()
 }
 
 onMounted(() => {
-  fetchHandler()
+  if (selectOpthionRef.value?.dateSelect) {
+    actions.setActionQuery('init', {
+      startDate: selectOpthionRef.value?.dateSelect.startDate.toString(),
+      endDate: selectOpthionRef.value?.dateSelect.endDate.toString(),
+      sid: selectOpthionRef.value?.sidPicker ?? 1
+    })
+
+    fetchHandler()
+  }
 })
 </script>
 
 <template>
   <div class="h-full flex flex-col [&>div:not(:first-of-type)]:mt-2">
-    <div class="bg-white rounded-xl p-3 flex items-start justify-between">
-      <div class="flex-1">header</div>
-      <div class="w-[90px] border-l">button</div>
+    <div class="bg-white rounded-xl p-3 flex items-center justify-between">
+      <SelectOption ref="selectOpthionRef" />
+      <div class="w-[90px] border-l flex flex-col items-center justify-center space-x-0 space-y-2">
+        <el-button plain size="small" @click="cancelHandler">{{ $i18n('button-cancel') }}</el-button>
+        <el-button type="primary" size="small" @click="searchHandler">{{ $i18n('button-search') }}</el-button>
+      </div>
     </div>
     <div class="bg-white rounded-xl flex-1 overflow-auto">
       <el-table
         :data="states.dataLs"
-        :height="`calc( 100% - ${states.pageHeight}px )`"
+        :height="`calc( 100% - ${paginationHeight}px )`"
         class="cusTable"
         style="width: 100%"
         header-cell-class-name="!text-center"
         cell-class-name="text-[12px] !text-center"
+        ref="tableboxDom"
       >
         <el-table-column fixed prop="orderId" :label="$i18n(`order-title-orderId`)" width="180"></el-table-column>
         <el-table-column :label="$i18n(`order-title-userName`)" width="120">
@@ -165,11 +190,11 @@ onMounted(() => {
           </template>
         </el-table-column>
       </el-table>
-      <div class="shadow-[-1px_0_2px_0_rgba(0,0,0,0.05)] flex justify-center items-center" :style="{ height: `${states.pageHeight}px` }">
+      <div class="shadow-[-1px_0_2px_0_rgba(0,0,0,0.05)] flex justify-center items-center" :style="{ height: `${paginationHeight}px` }">
         <el-pagination
           background
           :current-page="(states.paging?.currentPage ?? 0) + 1"
-          :page-size="10"
+          :page-size="defaultOrderPageReqParams.pageSize"
           layout="prev, pager, next"
           :total="states.paging?.totalCount"
           @current-change="pageChange"

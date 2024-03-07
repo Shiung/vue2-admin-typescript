@@ -86,4 +86,23 @@ interface OrdersGet {
   }>
 }
 
-export type { OrdersGet }
+interface TournamentByDateRangeGet {
+  req: {
+    startDate: string
+    endDate: string
+    sid: number
+  }
+  res: withData<Array<{ tid: number; name: string }>>
+}
+
+interface MatchByDateRangeGet {
+  req: {
+    startDate: string
+    endDate: string
+    sid: number
+    tid: number
+  }
+  res: withData<Array<{ gid: number; homeName: string; awayName: string }>>
+}
+
+export type { OrdersGet, TournamentByDateRangeGet, MatchByDateRangeGet }

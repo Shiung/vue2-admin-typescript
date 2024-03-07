@@ -53,6 +53,10 @@ class API extends Base {
 
   // orders
   OrdersListGet = this.action_get<Type.OrdersActionType.OrdersGet>(apiPathMap.ordersGet[prefixPath])
+  TournamentByDateRangeGet = this.action_get<Type.OrdersActionType.TournamentByDateRangeGet>(
+    apiPathMap.TournamentByDateRangeGet[prefixPath]
+  )
+  MatchBzyDateRangeGet = this.action_get<Type.OrdersActionType.MatchByDateRangeGet>(apiPathMap.MatchByDateRangeGet[prefixPath])
 
   // test
   TestFetch = this.action_get<Type.TestActionType.TestFetch>('/products/1')

@@ -53,7 +53,15 @@ const zhCN: { [key in string]: any } = {
       userResult: '会员输赢',
       totalAnte: '投注金额',
       status: '状态',
-      cancelReason: '取消原因'
+      cancelReason: '取消原因',
+      timePickLabel: '时间区间',
+      sportPickLabel: '运动',
+      leaguePickLabel: '联赛',
+      gamePickLabel: '赛事',
+      currencyPickLabel: '币种',
+      betTypeLabel: '投注类型',
+      userNameLabel: '会员名称',
+      orderIdLabel: '注单号码'
     },
     cancelReason: {
       manual_canceled: '手动取消',
@@ -72,7 +80,15 @@ const zhCN: { [key in string]: any } = {
     matchType: {
       Prematch: '早盘',
       Inplay: '滚球'
+    },
+    betType: {
+      single: '單注',
+      parlay: '串關'
     }
+  },
+  button: {
+    search: '查詢',
+    cancel: '取消'
   },
   error: {
     login: '栏位有问题'

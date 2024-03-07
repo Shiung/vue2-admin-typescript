@@ -1,10 +1,11 @@
 import { SID } from '@/constants'
+import config from '@/config'
 
 const sportsConf: Array<{ i18nKey: string; value: SID }> = [
-  { i18nKey: '足球', value: SID.football },
-  { i18nKey: '籃球', value: SID.basketball },
-  { i18nKey: '網球', value: SID.tennis },
-  { i18nKey: '棒球', value: SID.baseball }
+  { i18nKey: `sport-${SID[SID.football]}`, value: SID.football },
+  { i18nKey: `sport-${SID[SID.basketball]}`, value: SID.basketball },
+  { i18nKey: `sport-${SID[SID.tennis]}`, value: SID.tennis },
+  { i18nKey: `sport-${SID[SID.baseball]}`, value: SID.baseball }
 ]
 
 const currenciesConf: Array<{ i18nKey: string; value: string }> = [
@@ -13,8 +14,16 @@ const currenciesConf: Array<{ i18nKey: string; value: string }> = [
 ]
 
 const ordersConf: Array<{ i18nKey: string; value: string }> = [
-  { i18nKey: '單注', value: 'Single' },
-  { i18nKey: '串關', value: 'Parlay' }
+  { i18nKey: 'order-betType-single', value: 'Single' },
+  { i18nKey: 'order-betType-parlay', value: 'Parlay' }
 ]
 
-export { sportsConf, currenciesConf, ordersConf }
+const paginationHeight = 50
+
+const defaultOrderPageReqParams = {
+  page: 0,
+  pageSize: 30,
+  platformId: config.platform
+} as const
+
+export { sportsConf, currenciesConf, ordersConf, defaultOrderPageReqParams, paginationHeight }

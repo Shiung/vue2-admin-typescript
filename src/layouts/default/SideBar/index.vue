@@ -102,7 +102,7 @@ export default defineComponent({
               {{ $i18n(child.titleI18n) }}
             </el-menu-item>
           </el-submenu>
-          <el-menu-item v-else :key="menu.index" :index="menu.index" :disabled="menu.disabled">
+          <el-menu-item v-else :key="menu.index + 'menu-item'" :index="menu.index" :disabled="menu.disabled">
             <i :class="[menu.iconCss, '[&>svg]:inline', 'svgActive']">
               <component :is="menu.iconEL" />
             </i>

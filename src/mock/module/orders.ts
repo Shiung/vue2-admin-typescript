@@ -14,12 +14,15 @@ export default () => {
       method: 'get',
       response: (req: any): OrdersActionType.OrdersGet['res'] => {
         const { query } = req
-        const mockOrders = Array.from({ length: 30 }, (_, idx) => {
+        const isQueryExist = typeof query === 'object' && Object.keys(query).length > 0
+        const page = Number(query?.page ?? 0)
+        const pageSize = Number(query?.pageSize ?? 30)
+        const mockOrders = Array.from({ length: pageSize }, (_, idx) => {
           return {
             orderId: Random.id(),
             userId: `luxon_AutoRemote002`,
             platformId: 'luxon',
-            userName: `AutoRemote002-${idx}`,
+            userName: `AutoRemote002-${page + 1}-${idx}`,
             betTime: 1703804378000,
             updateTime: 1703879015000,
             currencyType: 'CNY',
@@ -81,16 +84,66 @@ export default () => {
           message: 'ok',
           mockPath: {
             root: import.meta.url,
-            path: apiPathMap.ordersGet.path
+            path: apiPathMap.ordersGet.path,
+            ...(isQueryExist && { query })
           },
           data: {
             page: {
-              currentPage: 0,
-              totalCount: Number(query?.pageSize),
-              totalPage: 1
+              currentPage: page,
+              totalCount: pageSize * 5,
+              totalPage: 5
             },
             orders: mockOrders
           }
+        }
+      }
+    },
+    {
+      url: apiPathMap.TournamentByDateRangeGet.mockPath,
+      method: 'get',
+      response: (req: any): OrdersActionType.TournamentByDateRangeGet['res'] => {
+        const { query } = req
+        const isQueryExist = typeof query === 'object' && Object.keys(query).length > 0
+        const fakeTids = Array.from({ length: Random.natural(1, 20) }, (_, idx) => {
+          return {
+            tid: Number(`${Random.natural(100, 2000)}${idx}`),
+            name: Random.ctitle()
+          }
+        })
+        return {
+          code: 0,
+          message: 'ok',
+          mockPath: {
+            root: import.meta.url,
+            path: apiPathMap.TournamentByDateRangeGet.path,
+            ...(isQueryExist && { query })
+          },
+          data: fakeTids
+        }
+      }
+    },
+    {
+      url: apiPathMap.MatchByDateRangeGet.mockPath,
+      method: 'get',
+      response: (req: any): OrdersActionType.MatchByDateRangeGet['res'] => {
+        const { query } = req
+        const isQueryExist = typeof query === 'object' && Object.keys(query).length > 0
+        const fakeTids = Array.from({ length: Random.natural(1, 10) }, (_, idx) => {
+          return {
+            gid: Number(`${Random.natural(100, 2000)}${idx}`),
+            homeName: Random.cname(),
+            awayName: Random.cname()
+          }
+        })
+        return {
+          code: 0,
+          message: 'ok',
+          mockPath: {
+            root: import.meta.url,
+            path: apiPathMap.MatchByDateRangeGet.path,
+            ...(isQueryExist && { query })
+          },
+          data: fakeTids
         }
       }
     }

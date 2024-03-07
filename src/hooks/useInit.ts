@@ -37,8 +37,10 @@ const useInit = () => {
           message: response?.data?.code ?? 'error',
           duration: 5000
         })
-        SET_LOOUT()
-        router.push({ name: 'login' })
+        if (Number(response.data.code) === 10403) {
+          SET_LOOUT()
+          router.push({ name: 'login' })
+        }
       }
     }
     isInit.value = true

@@ -22,6 +22,14 @@ const apiPathMap = {
   ordersGet: {
     path: '/orders/page',
     mockPath: '/orders/page'
+  },
+  TournamentByDateRangeGet: {
+    path: '/list/tournamentByDateRange',
+    mockPath: '/list/tournamentByDateRange'
+  },
+  MatchByDateRangeGet: {
+    path: '/list/matchByDateRange',
+    mockPath: '/list/matchByDateRange'
   }
 }
 

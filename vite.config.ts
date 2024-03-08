@@ -11,6 +11,17 @@ import svgLoader from 'vite-svg-loader'
 
 import packageJson from './package.json'
 
+const getGitCommit = () => {
+  let returnStr
+  try {
+    returnStr = execSync('git rev-parse HEAD')?.toString() ?? 'none'
+  } catch (error) {
+    returnStr = 'no use git repo'
+  }
+
+  return returnStr
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
@@ -29,7 +40,7 @@ export default defineConfig({
           title: packageJson.name,
           meta: [
             { name: 'app_version', content: packageJson.version },
-            { name: 'app_commitHEAD', content: execSync('git rev-parse HEAD').toString() }
+            { name: 'app_commitHEAD', content: getGitCommit() /* execSync('git rev-parse HEAD').toString() */ }
           ]
         }
       }

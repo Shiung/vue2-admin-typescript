@@ -114,7 +114,7 @@ router.beforeEach(async (to: ToRouterType, from, next) => {
   Progress.start()
   if (name === 'login') {
     if (token) {
-      next({ name: 'home', replace: true })
+      next({ path: '/', replace: true })
     } else {
       next()
     }

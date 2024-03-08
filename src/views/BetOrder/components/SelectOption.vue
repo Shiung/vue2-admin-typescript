@@ -1,12 +1,57 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, getCurrentInstance } from 'vue'
 import dayjs from 'dayjs'
 import Loading from 'vue-loading-overlay'
 
 import { sportsConf, currenciesConf, ordersConf } from '../constants'
 import { useFetchLeagueHandler, useFetchGameHandler } from '../hooks'
 
-const datePicker = ref([dayjs(), dayjs()])
+import { useUserStoreHook } from '@/stores/user'
+
+const vueInstance = getCurrentInstance()
+
+const pickerOptions = {
+  shortcuts: [
+    {
+      text: vueInstance?.proxy.$i18n('timer-range-week'),
+      onClick(picker: any) {
+        const today = dayjs()
+        const end = today.endOf('date')
+        const start = dayjs(today.valueOf() - 3600 * 1000 * 24 * 7).startOf('date')
+        picker?.$emit('pick', [start, end])
+      }
+    },
+    {
+      text: vueInstance?.proxy.$i18n('timer-range-month'),
+      onClick(picker: any) {
+        const today = dayjs()
+        const end = today.endOf('date')
+        const start = dayjs(today.valueOf() - 3600 * 1000 * 24 * 30).startOf('date')
+        picker?.$emit('pick', [start, end])
+      }
+    },
+    {
+      text: vueInstance?.proxy.$i18n('timer-range-oneQuarterYear'),
+      onClick(picker: any) {
+        const today = dayjs()
+        const end = today.endOf('date')
+        const start = dayjs(today.valueOf() - 3600 * 1000 * 24 * 30 * 3).startOf('date')
+        picker?.$emit('pick', [start, end])
+      }
+    },
+    {
+      text: vueInstance?.proxy.$i18n('timer-range-halfYear'),
+      onClick(picker: any) {
+        const today = dayjs()
+        const end = today.endOf('date')
+        const start = dayjs(today.valueOf() - 3600 * 1000 * 24 * 30 * 6).startOf('date')
+        picker?.$emit('pick', [start, end])
+      }
+    }
+  ]
+}
+
+const datePicker = ref([dayjs().startOf('date'), dayjs().endOf('date')])
 const sidPicker = ref(sportsConf[0].value)
 const tidPicker = ref<number | null>(null)
 const gidPicker = ref<number | null>(null)
@@ -21,8 +66,8 @@ const { states: useGameStates, actions: useGameActions } = useFetchGameHandler()
 const dateSelect = computed(() => {
   const [startDate, endDate] = datePicker.value
   return {
-    startDate: dayjs(startDate).startOf('date').valueOf(),
-    endDate: dayjs(endDate).endOf('date').valueOf()
+    startDate: startDate.valueOf(), // dayjs(startDate).startOf('date').valueOf(),
+    endDate: endDate.valueOf() //dayjs(endDate).endOf('date').valueOf()
   }
 })
 
@@ -38,6 +83,7 @@ const resetHandler = () => {
 watch(
   [() => sidPicker.value, () => dateSelect.value],
   ([sid, dateObj]) => {
+    if (!useUserStoreHook().token) return
     tidPicker.value = null
     useLeagueActions.fetchLeagueHandler(sid, { startDate: dateObj.startDate.toString(), endDate: dateObj.endDate.toString() })
   },
@@ -47,6 +93,7 @@ watch(
 watch(
   [() => tidPicker.value, () => dateSelect.value, () => sidPicker.value],
   ([tid, dateObj, sid]) => {
+    if (!useUserStoreHook().token) return
     gidPicker.value = null
     useGameActions.resetGidList()
     if (!sid || !tid) return
@@ -75,13 +122,15 @@ defineExpose({
         <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('order-title-timePickLabel') }}</div>
         <el-date-picker
           v-model="datePicker"
-          type="daterange"
+          type="datetimerange"
           size="small"
           range-separator="~"
           start-placeholder="start date"
           end-placeholder="end date"
           :clearable="false"
-          :style="{ width: '250px' }"
+          :style="{ width: '380px' }"
+          :default-time="['00:00:00', '23:59:59']"
+          :picker-options="pickerOptions"
         >
         </el-date-picker>
       </div>
@@ -105,7 +154,7 @@ defineExpose({
             :zIndex="1000"
             :is-full-page="false"
           />
-          <el-select v-model="tidPicker" placeholder="请选择" size="small">
+          <el-select v-model="tidPicker" placeholder="请选择" filterable size="small">
             <el-option v-for="{ tid, name } in useLeagueStates.tidList.value" :key="tid" :label="name" :value="tid"></el-option>
           </el-select>
         </div>
@@ -123,7 +172,7 @@ defineExpose({
             :zIndex="1000"
             :is-full-page="false"
           />
-          <el-select v-model="gidPicker" placeholder="请选择" size="small">
+          <el-select v-model="gidPicker" placeholder="请选择" filterable size="small">
             <el-option
               v-for="{ gid, homeName, awayName } in useGameStates.gidList.value"
               :key="gid"

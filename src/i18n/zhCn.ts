@@ -92,6 +92,14 @@ const zhCN: { [key in string]: any } = {
   },
   error: {
     login: '栏位有问题'
+  },
+  timer: {
+    range: {
+      week: '最近一周',
+      month: '最近一个月',
+      oneQuarterYear: '最近三个月',
+      halfYear: '最近半年'
+    }
   }
 }
 

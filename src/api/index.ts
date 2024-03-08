@@ -19,9 +19,12 @@ class API extends Base {
   private configBind(c?: Type.AxiosConfigBind) {
     const token = useUserStoreHook().token
     return {
+      // baseURL: mock ? '/' : config.apiUrl,
+      // ...(!!token && { headers: { Authorization: token } }),
+      // ...c
       baseURL: mock ? '/' : config.apiUrl,
-      ...(!!token && { headers: { Authorization: token } }),
-      ...c
+      ...c,
+      ...(!!token && { headers: { Authorization: token, ...(c && 'headers' in c && c.headers) } })
     }
   }
 
@@ -47,6 +50,13 @@ class API extends Base {
   PermissionManageRoleGroupGet = this.action_get_withPathParams<Type.AuthActionType.UserRoleGroupPermissionGroupGet>(
     apiPathMap.userRoleGroupPermission[prefixPath]
   )
+
+  // orders
+  OrdersListGet = this.action_get<Type.OrdersActionType.OrdersGet>(apiPathMap.ordersGet[prefixPath])
+  TournamentByDateRangeGet = this.action_get<Type.OrdersActionType.TournamentByDateRangeGet>(
+    apiPathMap.TournamentByDateRangeGet[prefixPath]
+  )
+  MatchBzyDateRangeGet = this.action_get<Type.OrdersActionType.MatchByDateRangeGet>(apiPathMap.MatchByDateRangeGet[prefixPath])
 
   // test
   TestFetch = this.action_get<Type.TestActionType.TestFetch>('/products/1')

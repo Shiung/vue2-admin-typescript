@@ -34,6 +34,62 @@ const zhCN: { [key in string]: any } = {
   logout: {
     button: '登出'
   },
+  sport: {
+    football: '足球',
+    basketball: '籃球',
+    tennis: '網球',
+    baseball: '棒球'
+  },
+  order: {
+    title: {
+      orderId: '注单编号',
+      userName: '会员',
+      betTime: '投注时间',
+      curGameTime: '当下赛事时间',
+      createTime: '成立时间',
+      payoutTime: '结算时间',
+      betDetail: '投注内容',
+      resultScore: '最终比分',
+      userResult: '会员输赢',
+      totalAnte: '投注金额',
+      status: '状态',
+      cancelReason: '取消原因',
+      timePickLabel: '时间区间',
+      sportPickLabel: '运动',
+      leaguePickLabel: '联赛',
+      gamePickLabel: '赛事',
+      currencyPickLabel: '币种',
+      betTypeLabel: '投注类型',
+      userNameLabel: '会员名称',
+      orderIdLabel: '注单号码'
+    },
+    cancelReason: {
+      manual_canceled: '手动取消',
+      goal_event: '得分取消',
+      match_canceled: '赛事取消'
+    },
+    marketResult: {
+      None: '',
+      Winner: '贏',
+      Loser: '输',
+      WinHalf: '赢半',
+      LoseHalf: '输半',
+      Refund: '退款',
+      Irrelevant: '取消'
+    },
+    matchType: {
+      Prematch: '早盘',
+      Inplay: '滚球'
+    },
+    betType: {
+      single: '單注',
+      parlay: '串關'
+    }
+  },
+  button: {
+    search: '查詢',
+    cancel: '取消'
+  },
   error: {
     login: '栏位有问题'
   }

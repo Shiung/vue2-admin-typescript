@@ -16,6 +16,20 @@ const apiPathMap = {
   userRoleGroupPermission: {
     path: '/permission-management/role-group/:id/permission',
     mockPath: '/permission-management/permission'
+  },
+
+  // orders
+  ordersGet: {
+    path: '/orders/page',
+    mockPath: '/orders/page'
+  },
+  TournamentByDateRangeGet: {
+    path: '/list/tournamentByDateRange',
+    mockPath: '/list/tournamentByDateRange'
+  },
+  MatchByDateRangeGet: {
+    path: '/list/matchByDateRange',
+    mockPath: '/list/matchByDateRange'
   }
 }
 

@@ -41,15 +41,12 @@ const fetchAction = async () => {
         operator: res.data.operatorId,
         info: res.data
       })
-      router.replace({ name: 'home' })
+      router.replace('/')
+    } else {
+      throw res
     }
-  } catch (e) {
-    const { response } = e as { response: { data: { code: string; message: string } } }
-    Message({
-      type: 'error',
-      message: response?.data?.code ?? 'error',
-      duration: 5000
-    })
+  } catch (e: any) {
+    console.log('e', e)
   }
   Progress.done()
 }

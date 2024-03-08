@@ -77,7 +77,7 @@ export default () => {
           }
         }
       },
-      timeout: 3000
+      timeout: 1000
     },
     {
       url: apiPathMap.userRoleGroup.mockPath,

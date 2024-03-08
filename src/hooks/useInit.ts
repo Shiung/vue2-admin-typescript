@@ -1,13 +1,12 @@
 import { ref, watch } from 'vue'
 import { useUserStoreHook } from '@/stores/user'
 import useNav from './useNav'
-import { Message } from 'element-ui'
 
 import API from '@/api'
 
 const useInit = () => {
-  const { token, operator, info, SET_LOGIN, SET_LOOUT } = useUserStoreHook()
-  const { route, router } = useNav()
+  const { token, operator, info, SET_LOGIN } = useUserStoreHook()
+  const { route } = useNav()
   const isInit = ref<boolean>(false)
   const isRouteDone = ref<boolean>(false)
 
@@ -21,27 +20,19 @@ const useInit = () => {
       try {
         const res = await API.PermissionManageGet()
         if (res.code !== 0) {
-          throw { response: { data: { code: res.code, message: res.message } } }
+          throw res
         }
         const roleId = res.data[0].id
         SET_LOGIN({ token, operator, info: { ...info, roleId: roleId } })
         const res2 = await API.PermissionManageRoleGroupGet(String(roleId))
         if (res2.code !== 0) {
-          throw { response: { data: { code: res2.code, message: res2.message } } }
+          throw res2
         }
       } catch (e) {
-        if (typeof e === 'string') Message({ type: 'error', message: e, duration: 5000 })
-        const { response } = e as { response: { data: { code: string; message: string } } }
-        Message({
-          type: 'error',
-          message: response?.data?.code ?? 'error',
-          duration: 5000
-        })
-        SET_LOOUT()
-        router.push({ name: 'login' })
+        console.log('e', e)
       }
     }
-    isInit.value = true
+    setTimeout(() => (isInit.value = true), 16)
   }
 
   watch(

@@ -7,12 +7,14 @@ import GlobalLoading from '@/components/GlobalLoading.vue'
 
 import useInit from '@/hooks/useInit'
 import useTheme from '@/hooks/useTheme'
+import { useRequestError } from '@/hooks/useError'
 
 const isLoading = ref<boolean>(false)
 
 const { isInit } = useInit()
 
 useTheme()
+useRequestError()
 watch(
   () => isLoading.value,
   (n, o) => {

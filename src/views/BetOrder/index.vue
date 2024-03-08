@@ -94,7 +94,7 @@ onMounted(() => {
         :height="`calc( 100% - ${paginationHeight}px )`"
         class="cusTable"
         style="width: 100%"
-        header-cell-class-name="!text-center"
+        header-cell-class-name="text-[12px] !text-center"
         cell-class-name="text-[12px] !text-center"
         ref="tableboxDom"
       >

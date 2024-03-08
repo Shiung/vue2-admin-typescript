@@ -31,7 +31,7 @@ const router = new VueRouter({
     {
       path: '/',
       // name: 'home',
-      redirect: '/',
+      redirect: '/betOrders',
       meta: { titleI18n: 'nav-homeTitle' },
       components: {
         default: () => import('@views/Home/index.vue'),
@@ -39,42 +39,42 @@ const router = new VueRouter({
         sideBar: () => import('@layouts/default/SideBar/index.vue')
       },
       children: [
-        {
-          path: '/',
-          name: 'home',
-          meta: { requiresAuth: true, titleI18n: 'test1Title', caches: true },
-          component: () => import('@views/pageTest1.vue')
-        },
-        {
-          path: 'test2',
-          name: 'test2',
-          meta: { requiresAuth: true, titleI18n: 'test2Title', caches: true },
-          component: () => import('@views/TestHome.vue')
-        },
-        {
-          path: 'test2/:id?',
-          name: 'test3',
-          meta: { requiresAuth: true, titleI18n: 'nav-game-manageTitle' },
-          component: () => import('@views/TestHome3.vue')
-        },
-        {
-          path: 'test4',
-          name: 'test4',
-          meta: { requiresAuth: true, titleI18n: 'nav-order-listTitle' },
-          component: () => import('@views/Test2Home.vue')
-        },
-        {
-          path: 'test5',
-          name: 'test5',
-          component: () => import('@views/Test5/HomeTest5.vue'),
-          meta: { requiresAuth: true, titleI18n: 'test5Title' }
-        },
-        {
-          path: 'test5/chid/:id',
-          name: 'test5In',
-          component: () => import('@views/Test5/PageTest.vue'),
-          meta: { requiresAuth: true, titleI18n: 'nav-order-editResultTitle', caches: true }
-        },
+        // {
+        //   path: '/',
+        //   name: 'home',
+        //   meta: { requiresAuth: true, titleI18n: 'test1Title', caches: true },
+        //   component: () => import('@views/pageTest1.vue')
+        // },
+        // {
+        //   path: 'test2',
+        //   name: 'test2',
+        //   meta: { requiresAuth: true, titleI18n: 'test2Title', caches: true },
+        //   component: () => import('@views/TestHome.vue')
+        // },
+        // {
+        //   path: 'test2/:id?',
+        //   name: 'test3',
+        //   meta: { requiresAuth: true, titleI18n: 'nav-game-manageTitle' },
+        //   component: () => import('@views/TestHome3.vue')
+        // },
+        // {
+        //   path: 'test4',
+        //   name: 'test4',
+        //   meta: { requiresAuth: true, titleI18n: 'nav-order-listTitle' },
+        //   component: () => import('@views/Test2Home.vue')
+        // },
+        // {
+        //   path: 'test5',
+        //   name: 'test5',
+        //   component: () => import('@views/Test5/HomeTest5.vue'),
+        //   meta: { requiresAuth: true, titleI18n: 'test5Title' }
+        // },
+        // {
+        //   path: 'test5/chid/:id',
+        //   name: 'test5In',
+        //   component: () => import('@views/Test5/PageTest.vue'),
+        //   meta: { requiresAuth: true, titleI18n: 'nav-order-editResultTitle', caches: true }
+        // },
 
         // account
         {

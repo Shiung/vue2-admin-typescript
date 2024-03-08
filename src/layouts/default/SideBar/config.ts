@@ -22,7 +22,8 @@ const menuConf: MenuList = [
       },
       {
         titleI18n: 'nav-order-editResultTitle',
-        index: 'test5'
+        index: 'test5',
+        disabled: true
       }
     ]
   },
@@ -38,7 +39,7 @@ const menuConf: MenuList = [
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/memberManage.svg'),
     index: 'test2',
-    disabled: false
+    disabled: true
   },
   {
     titleI18n: 'nav-report-listTitle',
@@ -60,7 +61,7 @@ const menuConf: MenuList = [
       {
         titleI18n: 'nav-account-manageTitle',
         index: 'home',
-        disabled: false
+        disabled: true
       }
     ],
     disabled: false

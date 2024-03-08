@@ -2,10 +2,6 @@ import { reactive, ref, inject, readonly } from 'vue'
 import API from '@/api'
 import type { OrdersActionType } from '@/api/types'
 import { SettingStateSymbol } from '@views/Home/stores/ProvideSetting.vue'
-import { useUserStoreHook } from '@/stores/user'
-import useNav from '@/hooks/useNav'
-
-import { Message } from 'element-ui'
 
 import { defaultOrderPageReqParams } from './constants'
 
@@ -25,8 +21,6 @@ const useFetchOrderPage = () => {
     actionQuery: ActionQuery
   }
 
-  const { SET_LOOUT } = useUserStoreHook()
-  const { router } = useNav()
   const states = reactive<State>({
     dataLs: [],
     paging: {
@@ -44,23 +38,14 @@ const useFetchOrderPage = () => {
       const res = await API.OrdersListGet(states.actionQuery ? { ...states.actionQuery } : undefined, {
         headers: { timeZone: 'UTC+8', language: provider_setting?.language ?? 'zh-cn' }
       })
-      if (res.code !== 0) {
-        throw { response: { data: { code: res.code, message: res.message } } }
+      if (res.code === 0) {
+        states.dataLs = res.data.orders
+        states.paging = res.data.page
+      } else {
+        throw res
       }
-      states.dataLs = res.data.orders
-      states.paging = res.data.page
     } catch (e) {
-      if (typeof e === 'string') Message({ type: 'error', message: e, duration: 5000 })
-      const { response } = e as { response: { data: { code: string; message: string } } }
-      Message({
-        type: 'error',
-        message: response?.data?.code ?? 'error',
-        duration: 5000
-      })
-      if (Number(response.data.code) === 10403) {
-        SET_LOOUT()
-        router.push({ name: 'login' })
-      }
+      console.log('error', e)
     }
   }
 
@@ -106,8 +91,6 @@ const useFetchOrderPage = () => {
 }
 
 const useFetchLeagueHandler = () => {
-  const { SET_LOOUT } = useUserStoreHook()
-  const { router } = useNav()
   const isFetchTids = ref<boolean>(false)
   const tidList = ref<Awaited<ReturnType<typeof API.TournamentByDateRangeGet>>['data']>([])
 
@@ -126,22 +109,13 @@ const useFetchLeagueHandler = () => {
           headers: { timeZone: 'UTC+8', language: provider_setting?.language ?? 'zh-cn' }
         }
       )
-      if (res.code !== 0) {
-        throw { response: { data: { code: res.code, message: res.message } } }
+      if (res.code === 0) {
+        tidList.value = res.data
+      } else {
+        throw res
       }
-      tidList.value = res.data
     } catch (e) {
-      if (typeof e === 'string') Message({ type: 'error', message: e, duration: 5000 })
-      const { response } = e as { response: { data: { code: string; message: string } } }
-      Message({
-        type: 'error',
-        message: response?.data?.code ?? 'error',
-        duration: 5000
-      })
-      if (Number(response.data.code) === 10403) {
-        SET_LOOUT()
-        router.push({ name: 'login' })
-      }
+      console.log('e', e)
     } finally {
       isFetchTids.value = false
     }
@@ -163,8 +137,6 @@ const useFetchGameHandler = () => {
     isFetchGids: boolean
     gidList: Awaited<ReturnType<typeof API.MatchBzyDateRangeGet>>['data']
   }
-  const { SET_LOOUT } = useUserStoreHook()
-  const { router } = useNav()
 
   const isFetchGids = ref<States['isFetchGids']>(false)
   const gidList = ref<States['gidList']>([])
@@ -184,22 +156,13 @@ const useFetchGameHandler = () => {
           headers: { timeZone: 'UTC+8', language: provider_setting?.language ?? 'zh-cn' }
         }
       )
-      if (res.code !== 0) {
-        throw { response: { data: { code: res.code, message: res.message } } }
+      if (res.code === 0) {
+        gidList.value = res.data
+      } else {
+        throw res
       }
-      gidList.value = res.data
     } catch (e) {
-      if (typeof e === 'string') Message({ type: 'error', message: e, duration: 5000 })
-      const { response } = e as { response: { data: { code: string; message: string } } }
-      Message({
-        type: 'error',
-        message: response?.data?.code ?? 'error',
-        duration: 5000
-      })
-      if (Number(response.data.code) === 10403) {
-        SET_LOOUT()
-        router.push({ name: 'login' })
-      }
+      console.log('e', e)
     } finally {
       isFetchGids.value = false
     }

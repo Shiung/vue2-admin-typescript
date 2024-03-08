@@ -93,10 +93,9 @@ watch(
 watch(
   [() => tidPicker.value, () => dateSelect.value, () => sidPicker.value],
   ([tid, dateObj, sid]) => {
-    if (!useUserStoreHook().token) return
     gidPicker.value = null
     useGameActions.resetGidList()
-    if (!sid || !tid) return
+    if (!sid || !tid || !useUserStoreHook().token) return
     useGameActions.fetchGameHandler(sidPicker.value, tid, { startDate: dateObj.startDate.toString(), endDate: dateObj.endDate.toString() })
   },
   { immediate: true }
@@ -200,11 +199,11 @@ defineExpose({
     <div class="flex items-center">
       <div class="flex items-center">
         <div class="text-slate-400 text-[12px] whitespace-nowrap mr-2">{{ $i18n('order-title-userNameLabel') }}</div>
-        <el-input v-model="userNameInput" placeholder="请输入会员名称" size="small"></el-input>
+        <el-input v-model.trim="userNameInput" placeholder="请输入会员名称" size="small"></el-input>
       </div>
       <div class="flex items-center">
         <div class="text-slate-400 text-[12px] whitespace-nowrap mr-2">{{ $i18n('order-title-orderIdLabel') }}</div>
-        <el-input v-model="orderIdInput" placeholder="请输入会员名称" size="small"></el-input>
+        <el-input v-model.trim="orderIdInput" placeholder="请输入会员名称" size="small"></el-input>
       </div>
     </div>
   </div>

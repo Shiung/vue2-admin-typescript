@@ -51,7 +51,7 @@ export default class Base {
     )
   }
 
-  private httpErrorResponse(e: (Error | AxiosError) & { response: any }) {
+  private httpErrorResponse(e: (Error | AxiosError) & { response: any } & { code: string; message: string }) {
     if (Axios.isAxiosError(e)) {
       // axios error
       // console.error('isAxiosError', e)
@@ -59,10 +59,13 @@ export default class Base {
       // others error
       // console.error('isNotAxiosError', e)
     }
+    const errorCode = e?.response?.data?.code ?? e.code
+    const errorMessage = e?.response?.data?.message ?? e.message
+
     emitter.emit('requestError', {
       response: e,
-      code: e?.response?.data?.code ?? 0,
-      message: e?.response?.data?.message ?? 'error'
+      code: errorCode,
+      message: errorMessage
     })
     return e
   }

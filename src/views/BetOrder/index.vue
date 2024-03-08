@@ -183,8 +183,8 @@ onMounted(() => {
         <el-table-column :label="$i18n('order-title-cancelReason')">
           <template #default="{ row: { detailInfos = [] } }">
             <template v-for="(i, idx) in detailInfos">
-              <span v-if="i.cancelReason" :key="`${i.tid}-${idx}`">
-                {{ $i18n(`order-cancelReason-${i.cancelReason}`) }}
+              <span v-if="i.cancelReason" :key="`${i.tid}-${idx}`" class="text-red-400">
+                {{ $i18n(`order-cancelReason-${i.cancelReason?.toLowerCase()}`) }}
               </span>
             </template>
           </template>

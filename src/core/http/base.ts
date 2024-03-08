@@ -42,6 +42,7 @@ export default class Base {
     Base.axiosInstance.interceptors.response.use(
       (response: AxiosResponse) => {
         if (mock) console.log('api response ==>', response)
+        if (response.data.code !== 0) throw { response }
         return response.data
       },
       (error) => {

@@ -32,7 +32,7 @@ const useInit = () => {
         console.log('e', e)
       }
     }
-    setTimeout(() => (isInit.value = true), 16)
+    setTimeout(() => (isInit.value = true), 100)
   }
 
   watch(

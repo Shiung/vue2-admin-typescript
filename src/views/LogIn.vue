@@ -24,7 +24,9 @@ const inputVal = reactive({
 })
 const inputRules = reactive({
   name: [{ required: true, message: vueInstance?.proxy.$i18n('login-accountError'), trigger: ['blur', 'change'] }],
-  password: [{ required: true, message: vueInstance?.proxy.$i18n('login-passwordError'), trigger: ['blur', 'change'] }]
+  password: [
+    { required: true, message: vueInstance?.proxy.$i18n('login-passwordError'), pattern: /^\w{6,10}$/g, trigger: ['blur', 'change'] }
+  ]
 })
 
 const fetchAction = async () => {
@@ -81,7 +83,13 @@ const sendHadner = async () => {
         </div>
         <el-form :model="inputVal" label-width="120px" label-position="top" :rules="inputRules" ref="formRef">
           <el-form-item class="emptyRequireMark" :label="$i18n('login-account')" prop="name">
-            <el-input v-model="inputVal.name" id="name" autocomplete="username" :placeholder="$i18n('login-accountPlaceholder')"></el-input>
+            <el-input
+              v-model="inputVal.name"
+              id="name"
+              autocomplete="username"
+              :placeholder="$i18n('login-accountPlaceholder')"
+              @keyup.enter.native="sendHadner"
+            ></el-input>
           </el-form-item>
           <el-form-item class="emptyRequireMark" :label="$i18n('login-password')" prop="password">
             <el-input
@@ -90,6 +98,7 @@ const sendHadner = async () => {
               show-password
               autocomplete="current-password"
               :placeholder="$i18n('login-passwordPlaceholder')"
+              @keyup.enter.native="sendHadner"
             ></el-input>
           </el-form-item>
           <el-form-item class="mt-[150px]">

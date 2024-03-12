@@ -30,6 +30,16 @@ const apiPathMap = {
   MatchByDateRangeGet: {
     path: '/list/matchByDateRange',
     mockPath: '/list/matchByDateRange'
+  },
+
+  // game
+  SportSwitchGet: {
+    path: '/game-management/sport-switch',
+    mockPath: '/game-management/sport-switch-get'
+  },
+  SportSwitchPut: {
+    path: '/game-management/sport-switch',
+    mockPath: '/game-management/sport-switch-put'
   }
 }
 

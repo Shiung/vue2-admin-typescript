@@ -31,8 +31,14 @@ const menuConf: MenuList = [
     titleI18n: 'nav-game-manageTitle',
     iconCss: 'el-icon-custom',
     iconEL: () => import('@/assets/svg/sideBar/gameManage.svg'),
-    index: '/test2/123',
-    disabled: true
+    index: 'gameManage',
+    children: [
+      {
+        titleI18n: 'nav-game-sportsMaintainTitle',
+        index: 'sportsMaintain',
+        disabled: false
+      }
+    ]
   },
   {
     titleI18n: 'nav-user-manageTitle',

@@ -7,7 +7,8 @@ const zhCN: { [key in string]: any } = {
       editResultTitle: '修改注单结果'
     },
     game: {
-      manageTitle: '賽事管理'
+      manageTitle: '賽事管理',
+      sportsMaintainTitle: '球种维护'
     },
     user: {
       manageTitle: '玩家管理'
@@ -84,6 +85,11 @@ const zhCN: { [key in string]: any } = {
     betType: {
       single: '單注',
       parlay: '串關'
+    }
+  },
+  game: {
+    title: {
+      sportsMaintain: '球种维护开关'
     }
   },
   button: {

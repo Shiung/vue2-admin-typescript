@@ -90,6 +90,14 @@ const router = new VueRouter({
           name: 'betOrders',
           component: () => import('@views/BetOrder/index.vue'),
           meta: { requiresAuth: true, titleI18n: 'nav-order-listTitle', caches: true }
+        },
+
+        // sports maintain
+        {
+          path: 'sportsMaintain',
+          name: 'sportsMaintain',
+          component: () => import('@/views/SportsMaintain/index.vue'),
+          meta: { requiresAuth: true, titleI18n: 'nav-game-sportsMaintainTitle', caches: true }
         }
       ]
     },
@@ -107,7 +115,7 @@ setTimeout(() => {
 
 router.beforeEach(async (to: ToRouterType, from, next) => {
   const { meta, name } = to
-  const { token, info } = useUserStoreHook()
+  const { token } = useUserStoreHook()
 
   console.log('to router before', { ...meta }, token)
   // console.log('to router before', { ...meta }, store)

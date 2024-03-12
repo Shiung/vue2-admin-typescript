@@ -86,6 +86,11 @@ export default class Base {
     return this.request<T['res']>('post', url, p, config)
   }
 
+  protected put<T extends ApiType<T['res'], T['req']>>(url: string, params?: T['req'], config?: AxiosRequestConfig): Promise<T['res']> {
+    const p = params ? { data: params } : undefined
+    return this.request<T['res']>('put', url, p, config)
+  }
+
   protected get<T extends ApiType<T['res'], T['req']>>(url: string, params?: T['req'], config?: AxiosRequestConfig): Promise<T['res']> {
     const p = params ? { params } : undefined
     return this.request<T['res']>('get', url, p, config)

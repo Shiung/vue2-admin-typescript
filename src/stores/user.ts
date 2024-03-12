@@ -22,7 +22,8 @@ export const useUserStore = defineStore({
     operatorName: (state) => {
       const [platform, op] = state.operator?.split('_') ?? []
       return op || platform
-    }
+    },
+    userPermissions: (state) => state.info.permissions
   },
   actions: {
     SET_TOKEN(token: string) {

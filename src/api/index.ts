@@ -44,6 +44,10 @@ class API extends Base {
     return (data: T['req'], c?: Type.AxiosConfigBind) => this.post<T>(url, data, this.configBind(c))
   }
 
+  private action_put<T extends ApiType<T['res'], T['req']>>(url: string) {
+    return (data: T['req'], c?: Type.AxiosConfigBind) => this.put<T>(url, data, this.configBind(c))
+  }
+
   // auth
   LoginPost = this.action_post<Type.AuthActionType.LoginPost>(apiPathMap.login[prefixPath])
   PermissionManageGet = this.action_get<Type.AuthActionType.UserRoleGroupGet>(apiPathMap.userRoleGroup[prefixPath])
@@ -57,6 +61,10 @@ class API extends Base {
     apiPathMap.TournamentByDateRangeGet[prefixPath]
   )
   MatchBzyDateRangeGet = this.action_get<Type.OrdersActionType.MatchByDateRangeGet>(apiPathMap.MatchByDateRangeGet[prefixPath])
+
+  // game
+  SportSwitchGet = this.action_get<Type.GamesActionType.SportSwitchGet>(apiPathMap.SportSwitchGet[prefixPath])
+  SportSwitchPut = this.action_put<Type.GamesActionType.SportSwitchPut>(apiPathMap.SportSwitchPut[prefixPath])
 
   // test
   TestFetch = this.action_get<Type.TestActionType.TestFetch>('/products/1')

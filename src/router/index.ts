@@ -12,6 +12,7 @@ declare module 'vue-router' {
   interface RouteMeta {
     requiresAuth?: boolean
     titleI18n?: string
+    breadcrumb?: Array<{ titleI18n: string }>
     lock?: boolean
     caches?: boolean
   }
@@ -81,23 +82,37 @@ const router = new VueRouter({
           path: 'auth/permission',
           name: 'account-permission',
           component: () => import('@views/Permission/index.vue'),
-          meta: { requiresAuth: true, titleI18n: 'nav-account-permissionManageTitle', caches: true }
+          meta: {
+            requiresAuth: true,
+            titleI18n: 'nav-account-permissionManageTitle',
+            caches: true
+          }
         },
 
-        // bet orders
+        // orderManage
         {
           path: 'betOrders',
           name: 'betOrders',
           component: () => import('@views/BetOrder/index.vue'),
-          meta: { requiresAuth: true, titleI18n: 'nav-order-listTitle', caches: true }
+          meta: {
+            requiresAuth: true,
+            titleI18n: 'nav-order-listTitle',
+            caches: true,
+            breadcrumb: [{ titleI18n: 'nav-order-manageTitle' }]
+          }
         },
 
-        // sports maintain
+        // gameManage
         {
           path: 'sportsMaintain',
           name: 'sportsMaintain',
           component: () => import('@/views/SportsMaintain/index.vue'),
-          meta: { requiresAuth: true, titleI18n: 'nav-game-sportsMaintainTitle', caches: true }
+          meta: {
+            requiresAuth: true,
+            titleI18n: 'nav-game-sportsMaintainTitle',
+            caches: true,
+            breadcrumb: [{ titleI18n: 'nav-game-manageTitle' }]
+          }
         }
       ]
     },

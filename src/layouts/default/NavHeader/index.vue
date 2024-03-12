@@ -43,6 +43,14 @@ export default defineComponent({
         const curName = r.name
         this.breadcrumbLs = r.matched.reduce((sum, cur) => {
           const { meta } = cur
+          if (meta.breadcrumb && meta.breadcrumb.length > 0) {
+            meta.breadcrumb.forEach(({ titleI18n }) => {
+              sum.push({
+                i18nKey: titleI18n
+              })
+            })
+          }
+
           return meta.titleI18n
             ? sum.concat({
                 i18nKey: meta.titleI18n,

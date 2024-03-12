@@ -8,6 +8,8 @@ export default {
 import { onMounted, reactive, inject, computed } from 'vue'
 import { SID } from '@/constants'
 import Banner_sports from '@/assets/img/banner_sports.png'
+import { storeToRefs } from 'pinia'
+import { useUserStoreHook } from '@/stores/user'
 import API from '@/api'
 import config from '@/config'
 import Progress from '@/core/progress'
@@ -25,6 +27,7 @@ const states = reactive<States>({
   permission: false
 })
 
+const { token } = storeToRefs(useUserStoreHook())
 const provider_setting = inject(SettingStateSymbol)
 
 const updateParams = computed(() =>
@@ -45,6 +48,7 @@ const checkPermissionHandler = () => {
 }
 
 const putSportsSwitchHandler = async () => {
+  if (!token.value) return
   try {
     Progress.start()
     const res = await API.SportSwitchPut(updateParams.value, {
@@ -66,6 +70,7 @@ const putSportsSwitchHandler = async () => {
 }
 
 const fetchHandler = async () => {
+  if (!token.value) return
   try {
     Progress.start()
     const res = await API.SportSwitchGet(

@@ -113,6 +113,17 @@ const router = new VueRouter({
             caches: true,
             breadcrumb: [{ titleI18n: 'nav-game-manageTitle' }]
           }
+        },
+        {
+          path: 'leagueLimit',
+          name: 'leagueLimit',
+          component: () => import('@/views/LeagueLimit/index.vue'),
+          meta: {
+            requiresAuth: true,
+            titleI18n: 'nav-game-leagueLimitTitle',
+            caches: true,
+            breadcrumb: [{ titleI18n: 'nav-game-manageTitle' }]
+          }
         }
       ]
     },

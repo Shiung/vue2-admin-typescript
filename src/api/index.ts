@@ -65,6 +65,10 @@ class API extends Base {
   // game
   SportSwitchGet = this.action_get<Type.GamesActionType.SportSwitchGet>(apiPathMap.SportSwitchGet[prefixPath])
   SportSwitchPut = this.action_put<Type.GamesActionType.SportSwitchPut>(apiPathMap.SportSwitchPut[prefixPath])
+  SportCidListGet = this.action_get<Type.GamesActionType.SportCidListGet>(apiPathMap.SportCidListGet[prefixPath])
+  SportTidListGet = this.action_get<Type.GamesActionType.SportTidListGet>(apiPathMap.SportTidListGet[prefixPath])
+  SportLeagueLimitGet = this.action_get<Type.GamesActionType.SportLeagueLimitGet>(apiPathMap.SportLeagueLimitGet[prefixPath])
+  SportLeagueLimitPut = this.action_put<Type.GamesActionType.SportLeagueLimitPut>(apiPathMap.SportLeagueLimitPut[prefixPath])
 
   // test
   TestFetch = this.action_get<Type.TestActionType.TestFetch>('/products/1')

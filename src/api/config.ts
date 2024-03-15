@@ -40,6 +40,22 @@ const apiPathMap = {
   SportSwitchPut: {
     path: '/game-management/sport-switch',
     mockPath: '/game-management/sport-switch-put'
+  },
+  SportCidListGet: {
+    path: '/game-management/cid-list',
+    mockPath: '/game-management/cid-list'
+  },
+  SportTidListGet: {
+    path: '/game-management/tid-list',
+    mockPath: '/game-management/tid-list'
+  },
+  SportLeagueLimitGet: {
+    path: '/game-management/limit',
+    mockPath: '/game-management/limit-get'
+  },
+  SportLeagueLimitPut: {
+    path: '/game-management/limit',
+    mockPath: '/game-management/limit-put'
   }
 }
 

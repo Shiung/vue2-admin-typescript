@@ -34,6 +34,11 @@ const menuConf: MenuList = [
     index: 'gameManage',
     children: [
       {
+        titleI18n: 'nav-game-leagueLimitTitle',
+        index: 'leagueLimit',
+        disabled: false
+      },
+      {
         titleI18n: 'nav-game-sportsMaintainTitle',
         index: 'sportsMaintain',
         disabled: false

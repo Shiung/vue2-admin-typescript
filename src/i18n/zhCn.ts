@@ -8,7 +8,8 @@ const zhCN: { [key in string]: any } = {
     },
     game: {
       manageTitle: '賽事管理',
-      sportsMaintainTitle: '球种维护'
+      sportsMaintainTitle: '球种维护',
+      leagueLimitTitle: '联赛限额'
     },
     user: {
       manageTitle: '玩家管理'
@@ -89,12 +90,26 @@ const zhCN: { [key in string]: any } = {
   },
   game: {
     title: {
-      sportsMaintain: '球种维护开关'
+      sportsMaintain: '球种维护开关',
+      regionPickLabel: '区域',
+      leaguePickLabel: '联赛',
+      leagueName: '联赛名称',
+      minimumBet: '单注最低投注额',
+      matchMaxBet: '单场最高投注额',
+      maxPayout: '最高派彩额',
+      option: '功能'
     }
   },
   button: {
     search: '查詢',
-    cancel: '取消'
+    cancel: '取消',
+    confirm: '确认',
+    edit: '编辑',
+    reset: '重置'
+  },
+  unit: {
+    multiple: '批量',
+    single: '单笔'
   },
   error: {
     login: '栏位有问题'

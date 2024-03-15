@@ -10,7 +10,7 @@ export default () => {
       url: apiPathMap.SportSwitchGet.mockPath,
       method: 'get',
       response: (req: any): GamesActionType.SportSwitchGet['res'] => {
-        const { query } = req as { query: GamesActionType.SportSwitchGet['req']}
+        const { query } = req as { query: GamesActionType.SportSwitchGet['req'] }
         const isQueryExist = typeof query === 'object' && Object.keys(query).length > 0
 
         const fakeLs = Array.from({ length: 4 }, (_, idx) => {

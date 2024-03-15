@@ -31,10 +31,10 @@ const { token } = storeToRefs(useUserStoreHook())
 const provider_setting = inject(SettingStateSymbol)
 
 const updateParams = computed(() =>
-  states.list.map(({ SportId, Enable }) => ({
-    sport_id: SportId,
-    platform_id: config.platform,
-    enable: !Enable
+  states.list.map(({ sportId, enable }) => ({
+    sportId: sportId,
+    platformId: config.platform,
+    enable: !enable
   }))
 )
 
@@ -83,7 +83,7 @@ const fetchHandler = async () => {
     )
 
     if (res.code === 0) {
-      states.list = res.data.map((i) => ({ ...i, Enable: !i.Enable }))
+      states.list = res.data.map((i) => ({ ...i, enable: !i.enable }))
     } else {
       throw res
     }
@@ -108,9 +108,9 @@ onMounted(() => {
       </div>
 
       <div class="space-y-3">
-        <div class="flex items-center justify-between py-2" v-for="sport in states.list" :key="sport.Id">
-          <span>{{ $i18n(`sport-${SID[sport.SportId] ?? sport.SportId}`) }}</span>
-          <el-switch v-model="sport.Enable" :disabled="!states.permission"></el-switch>
+        <div class="flex items-center justify-between py-2" v-for="sport in states.list" :key="sport.sportId">
+          <span>{{ $i18n(`sport-${SID[sport.sportId] ?? sport.sportId}`) }}</span>
+          <el-switch v-model="sport.enable" :disabled="!states.permission"></el-switch>
         </div>
       </div>
     </div>

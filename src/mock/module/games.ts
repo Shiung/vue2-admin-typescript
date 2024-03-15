@@ -15,12 +15,9 @@ export default () => {
 
         const fakeLs = Array.from({ length: 4 }, (_, idx) => {
           return {
-            Id: idx + 1,
-            PlatformId: query?.platformId ?? 'luxon',
-            SportId: idx + 1,
-            Enable: Random.natural(0, 1) === 1,
-            CreateTime: '',
-            UpdateTime: ''
+            platformId: query?.platformId ?? 'luxon',
+            sportId: idx + 1,
+            enable: Random.natural(0, 1) === 1
           }
         })
 

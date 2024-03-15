@@ -8,20 +8,17 @@ interface SportSwitchGet {
   }
   res: withData<
     Array<{
-      Id: number
-      PlatformId: string
-      SportId: number
-      Enable: boolean
-      CreateTime: string
-      UpdateTime: string
+      enable: boolean
+      platformId: string
+      sportId: number
     }>
   >
 }
 
 interface SportSwitchPut {
   req: Array<{
-    sport_id: number
-    platform_id: string
+    sportId: number
+    platformId: string
     enable: boolean
   }>
   res: withData<undefined>

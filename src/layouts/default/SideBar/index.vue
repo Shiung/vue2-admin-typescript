@@ -6,6 +6,7 @@ import { useThemeStore } from '@/stores/theme'
 import { ThemeConf } from '@/styles/theme/config'
 import Svg_Logo from '@/assets/svg/logo.svg'
 import Backstage from '@/assets/svg/backstage.svg'
+import { isNavigationFailure, NavigationFailureType } from 'vue-router'
 
 import { menuConf } from './config'
 
@@ -40,8 +41,13 @@ export default defineComponent({
         console.log('same ***', keyPath)
         return
       }
-      // this.$router.push(key)
-      this.$router.push({ name: key })
+
+      // 導航守衛issue 用prmoise catch
+      this.$router.push({ name: key }).catch((e) => {
+        if (!isNavigationFailure(e, NavigationFailureType.redirected)) {
+          Promise.reject(e)
+        }
+      })
     }
   },
   mounted() {

@@ -48,7 +48,7 @@ defineExpose({
 <template>
   <div class="flex-1 flex space-x-2">
     <div class="flex items-center">
-      <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('order-title-sportPickLabel') }}</div>
+      <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('selector-label-sportPickLabel') }}</div>
       <el-select
         v-model="sidPicker"
         placeholder="请选择"
@@ -60,7 +60,7 @@ defineExpose({
       </el-select>
     </div>
     <div class="flex items-center">
-      <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('game-title-regionPickLabel') }}</div>
+      <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('selector-label-regionPickLabel') }}</div>
       <div class="w-[150px]">
         <Loading
           :active="useCidsStates.isFetchCids.value"
@@ -85,7 +85,7 @@ defineExpose({
       </div>
     </div>
     <div class="flex items-center">
-      <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('game-title-leaguePickLabel') }}</div>
+      <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('selector-label-leaguePickLabel') }}</div>
       <div class="w-[150px]">
         <Loading
           :active="useTidsStates.isFetchTids.value"

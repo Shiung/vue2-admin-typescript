@@ -118,7 +118,7 @@ defineExpose({
   <div class="flex-1 space-y-2 pr-2 [&>div]:space-x-3">
     <div class="flex items-center">
       <div class="flex items-center">
-        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('order-title-timePickLabel') }}</div>
+        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('selector-label-timePickLabel') }}</div>
         <el-date-picker
           v-model="datePicker"
           type="datetimerange"
@@ -134,7 +134,7 @@ defineExpose({
         </el-date-picker>
       </div>
       <div class="flex items-center">
-        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('order-title-sportPickLabel') }}</div>
+        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('selector-label-sportPickLabel') }}</div>
         <el-select v-model="sidPicker" placeholder="请选择" size="small" :style="{ width: '100px' }">
           <el-option v-for="item in sportsConf" :key="item.value" :label="$i18n(item.i18nKey)" :value="item.value"></el-option>
         </el-select>
@@ -142,7 +142,7 @@ defineExpose({
     </div>
     <div class="flex items-center">
       <div class="flex items-center">
-        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('order-title-leaguePickLabel') }}</div>
+        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('selector-label-leaguePickLabel') }}</div>
         <div class="w-[150px]">
           <Loading
             :active="useLeagueStates.isFetchTids.value"
@@ -160,7 +160,7 @@ defineExpose({
       </div>
 
       <div class="flex items-center">
-        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('order-title-gamePickLabel') }}</div>
+        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('selector-label-gamePickLabel') }}</div>
         <div class="w-[150px]">
           <Loading
             :active="useGameStates.isFetchGids.value"
@@ -183,14 +183,14 @@ defineExpose({
       </div>
 
       <div class="flex items-center">
-        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('order-title-currencyPickLabel') }}</div>
+        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('selector-label-currencyPickLabel') }}</div>
         <el-select v-model="currencyPicker" placeholder="请选择" size="small" :style="{ width: '100px' }">
           <el-option v-for="{ i18nKey, value } in currenciesConf" :key="value" :label="$i18n(i18nKey)" :value="value"></el-option>
         </el-select>
       </div>
 
       <div class="flex items-center">
-        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('order-title-currencyPickLabel') }}</div>
+        <div class="text-slate-400 text-[12px] mr-2">{{ $i18n('selector-label-betTypeLabel') }}</div>
         <el-select v-model="orderTypePicker" placeholder="全部" size="small" :style="{ width: '100px' }">
           <el-option v-for="{ i18nKey, value } in ordersConf" :key="value" :label="$i18n(i18nKey)" :value="value"></el-option>
         </el-select>
@@ -198,11 +198,11 @@ defineExpose({
     </div>
     <div class="flex items-center">
       <div class="flex items-center">
-        <div class="text-slate-400 text-[12px] whitespace-nowrap mr-2">{{ $i18n('order-title-userNameLabel') }}</div>
+        <div class="text-slate-400 text-[12px] whitespace-nowrap mr-2">{{ $i18n('selector-label-userNameLabel') }}</div>
         <el-input v-model.trim="userNameInput" placeholder="请输入会员名称" size="small"></el-input>
       </div>
       <div class="flex items-center">
-        <div class="text-slate-400 text-[12px] whitespace-nowrap mr-2">{{ $i18n('order-title-orderIdLabel') }}</div>
+        <div class="text-slate-400 text-[12px] whitespace-nowrap mr-2">{{ $i18n('selector-label-orderIdLabel') }}</div>
         <el-input v-model.trim="orderIdInput" placeholder="请输入会员名称" size="small"></el-input>
       </div>
     </div>

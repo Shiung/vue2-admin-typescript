@@ -2,14 +2,15 @@ const zhCN: { [key in string]: any } = {
   nav: {
     homeTitle: '首頁',
     order: {
-      manageTitle: '注單管理',
+      manageTitle: '注单管理',
       listTitle: '注单查询',
       editResultTitle: '修改注单结果'
     },
     game: {
-      manageTitle: '賽事管理',
+      manageTitle: '赛事管理',
       sportsMaintainTitle: '球种维护',
-      leagueLimitTitle: '联赛限额'
+      leagueLimitTitle: '联赛限额',
+      parlaySettingTitle: '串关设定'
     },
     user: {
       manageTitle: '玩家管理'
@@ -38,8 +39,8 @@ const zhCN: { [key in string]: any } = {
   },
   sport: {
     football: '足球',
-    basketball: '籃球',
-    tennis: '網球',
+    basketball: '篮球',
+    tennis: '网球',
     baseball: '棒球'
   },
   order: {
@@ -55,15 +56,7 @@ const zhCN: { [key in string]: any } = {
       userResult: '会员输赢',
       totalAnte: '投注金额',
       status: '状态',
-      cancelReason: '取消原因',
-      timePickLabel: '时间区间',
-      sportPickLabel: '运动',
-      leaguePickLabel: '联赛',
-      gamePickLabel: '赛事',
-      currencyPickLabel: '币种',
-      betTypeLabel: '投注类型',
-      userNameLabel: '会员名称',
-      orderIdLabel: '注单号码'
+      cancelReason: '取消原因'
     },
     cancelReason: {
       manual_canceled: '手动取消',
@@ -91,8 +84,6 @@ const zhCN: { [key in string]: any } = {
   game: {
     title: {
       sportsMaintain: '球种维护开关',
-      regionPickLabel: '区域',
-      leaguePickLabel: '联赛',
       leagueName: '联赛名称',
       minimumBet: '单注最低投注额',
       matchMaxBet: '单场最高投注额',
@@ -120,6 +111,19 @@ const zhCN: { [key in string]: any } = {
       month: '最近一个月',
       oneQuarterYear: '最近三个月',
       halfYear: '最近半年'
+    }
+  },
+  selector: {
+    label: {
+      timePickLabel: '时间区间',
+      sportPickLabel: '运动',
+      regionPickLabel: '区域',
+      leaguePickLabel: '联赛',
+      gamePickLabel: '赛事',
+      currencyPickLabel: '币种',
+      betTypeLabel: '投注类型',
+      userNameLabel: '会员名称',
+      orderIdLabel: '注单号码'
     }
   }
 }
